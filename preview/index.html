@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>GASTROORIGEN</title>
+  <style>
+    :root{--bg:#f7f0e6;--card:#fffaf3;--accent:#7a3e24;--soft:#f0e0c8;--line:#d7be9b;--text:#2d241f}
+    *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+    .wrap{max-width:520px;margin:auto;padding:24px 20px 40px}.brand{background:var(--soft);border:1px solid var(--line);border-radius:24px;padding:22px 16px;text-align:center}
+    h1{margin:0;font-size:32px;letter-spacing:1.5px}.tag{margin:8px 0 0;font-size:15px}.logo-note{font-size:11px;font-style:italic;margin-top:10px;opacity:.72}
+    h2{text-align:center;margin:34px 0 10px;font-size:25px}.lead{text-align:center;line-height:1.5;margin:0 0 26px}.btn{width:100%;border:0;border-radius:18px;padding:17px 16px;font-weight:800;font-size:14px;cursor:pointer}
+    .primary{background:var(--accent);color:white}.secondary{margin-top:12px;background:transparent;border:1.5px solid var(--accent);color:var(--accent)}
+    .section{font-weight:800;font-size:18px;margin:34px 0 14px}.card{display:flex;gap:14px;align-items:center;background:var(--card);border-radius:18px;padding:16px;margin-top:12px;border:1px solid #eadcca;box-shadow:0 2px 9px rgba(60,35,20,.05)}
+    .icon{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:var(--soft);font-size:23px}.copy{flex:1}.title{font-weight:800}.sub{font-size:14px;line-height:1.4;margin-top:4px;opacity:.78}.arrow{font-size:24px;opacity:.55}
+    .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#2d241f;color:white;padding:10px 14px;border-radius:999px;opacity:0;pointer-events:none;transition:.2s}.toast.show{opacity:1}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="brand">
+      <h1>GASTROORIGEN</h1>
+      <p class="tag">México se cuenta a través de sus sabores.</p>
+      <div class="logo-note">Espacio reservado para el logo oficial</div>
+    </section>
+
+    <h2>¿Qué quieres descubrir hoy?</h2>
+    <p class="lead">Escanea un ingrediente o platillo y descubre su origen, historia y usos gastronómicos.</p>
+
+    <button class="btn primary" data-feature="El escáner">📷 ESCANEAR INGREDIENTE O PLATILLO</button>
+    <button class="btn secondary" data-feature="Galería">🖼️ SUBIR UNA FOTOGRAFÍA</button>
+
+    <div class="section">Explora GASTROORIGEN</div>
+    <div class="card" data-feature="Explorar"><div class="icon">🔎</div><div class="copy"><div class="title">Explorar</div><div class="sub">Busca ingredientes, platillos y sabores de México.</div></div><div class="arrow">›</div></div>
+    <div class="card" data-feature="Historias"><div class="icon">📖</div><div class="copy"><div class="title">Historias</div><div class="sub">Conoce el origen cultural detrás de cada sabor.</div></div><div class="arrow">›</div></div>
+    <div class="card" data-feature="Mi GASTROORIGEN"><div class="icon">👤</div><div class="copy"><div class="title">Mi GASTROORIGEN</div><div class="sub">Tus descubrimientos, favoritos e historial.</div></div><div class="arrow">›</div></div>
+  </main>
+  <div id="toast" class="toast"></div>
+  <script>
+    const toast=document.getElementById('toast');
+    document.querySelectorAll('[data-feature]').forEach(el=>el.addEventListener('click',()=>{
+      toast.textContent=el.dataset.feature+' se conectará en el siguiente paso.';
+      toast.classList.add('show'); setTimeout(()=>toast.classList.remove('show'),1800);
+    }));
+  </script>
+</body>
+</html>
