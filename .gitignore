@@ -1,0 +1,46 @@
+# Flutter / Dart
+.dart_tool/
+.packages
+.pub/
+build/
+.flutter-plugins
+.flutter-plugins-dependencies
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# Android local / signing
+android/.gradle/
+android/local.properties
+android/key.properties
+*.jks
+*.keystore
+*.key
+
+# Apple / iOS signing and local files
+ios/Pods/
+ios/.symlinks/
+ios/Flutter/ephemeral/
+*.p12
+*.p8
+*.cer
+*.mobileprovision
+*.provisionprofile
+
+# Secrets / environment
+.env
+.env.*
+!.env.example
+secrets/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Generated local artifacts
+*.apk
+*.aab
+*.ipa
+*.xcarchive
