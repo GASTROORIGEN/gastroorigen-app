@@ -13,6 +13,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final colors = theme.colorScheme;
 
     return Scaffold(
       body: SafeArea(
@@ -24,11 +25,18 @@ class HomeScreen extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 16),
                 decoration: BoxDecoration(
-                  color: const Color(0xFFF0E0C8),
+                  color: const Color(0xFFFFFAF0),
                   borderRadius: BorderRadius.circular(24),
-                  border: Border.all(color: const Color(0xFFD7BE9B)),
+                  border: Border.all(color: const Color(0xFFD9B86A), width: 1.5),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Color(0x1200452F),
+                      blurRadius: 18,
+                      offset: Offset(0, 8),
+                    ),
+                  ],
                 ),
-                child: const Column(
+                child: Column(
                   children: [
                     Text(
                       'GASTROORIGEN',
@@ -37,18 +45,14 @@ class HomeScreen extends StatelessWidget {
                         fontSize: 30,
                         fontWeight: FontWeight.w800,
                         letterSpacing: 1.8,
+                        color: colors.primary,
                       ),
                     ),
-                    SizedBox(height: 6),
-                    Text(
+                    const SizedBox(height: 6),
+                    const Text(
                       'México se cuenta a través de sus sabores.',
                       textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 15, height: 1.35),
-                    ),
-                    SizedBox(height: 10),
-                    Text(
-                      'Espacio reservado para el logo oficial',
-                      style: TextStyle(fontSize: 11, fontStyle: FontStyle.italic),
                     ),
                   ],
                 ),
@@ -59,13 +63,17 @@ class HomeScreen extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: theme.textTheme.headlineSmall?.copyWith(
                   fontWeight: FontWeight.w800,
+                  color: colors.primary,
                 ),
               ),
               const SizedBox(height: 10),
               Text(
                 'Escanea un ingrediente o platillo y descubre su origen, historia y usos gastronómicos.',
                 textAlign: TextAlign.center,
-                style: theme.textTheme.bodyLarge?.copyWith(height: 1.45),
+                style: theme.textTheme.bodyLarge?.copyWith(
+                  height: 1.45,
+                  color: const Color(0xFF69685F),
+                ),
               ),
               const SizedBox(height: 28),
               FilledButton.icon(
@@ -94,15 +102,20 @@ class HomeScreen extends StatelessWidget {
                   child: Text('SUBIR UNA FOTOGRAFÍA'),
                 ),
                 style: OutlinedButton.styleFrom(
+                  backgroundColor: const Color(0xFFFFFAF0),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(18),
                   ),
                 ),
               ),
               const SizedBox(height: 34),
-              const Text(
+              Text(
                 'Explora GASTROORIGEN',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800),
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w800,
+                  color: colors.secondary,
+                ),
               ),
               const SizedBox(height: 14),
               FeatureCard(
