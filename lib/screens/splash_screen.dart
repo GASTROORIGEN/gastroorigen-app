@@ -18,6 +18,22 @@ class _SplashScreenState extends State<SplashScreen> {
   static const _duration = Duration(milliseconds: 2800);
   static const _background = Color(0xFF0C2A18);
 
+  static const _splashParts = <String>[
+    'assets/branding/splash_hq_part01.txt',
+    'assets/branding/splash_hq_part02.txt',
+    'assets/branding/splash_hq_part03.txt',
+    'assets/branding/splash_hq_part04.txt',
+    'assets/branding/splash_hq_part05.txt',
+    'assets/branding/splash_hq_part06.txt',
+    'assets/branding/splash_hq_part07.txt',
+    'assets/branding/splash_hq_part08.txt',
+    'assets/branding/splash_hq_part09.txt',
+    'assets/branding/splash_hq_part10.txt',
+    'assets/branding/splash_hq_part11.txt',
+    'assets/branding/splash_hq_part12.txt',
+    'assets/branding/splash_hq_part13.txt',
+  ];
+
   Timer? _timer;
   Uint8List? _imageBytes;
   bool _navigated = false;
@@ -30,10 +46,11 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Future<void> _loadSplash() async {
     try {
-      final encoded = await rootBundle.loadString(
-        'assets/branding/splash_base64.txt',
-      );
-      final clean = encoded.replaceAll(RegExp(r'\s+'), '');
+      final buffer = StringBuffer();
+      for (final path in _splashParts) {
+        buffer.write(await rootBundle.loadString(path));
+      }
+      final clean = buffer.toString().replaceAll(RegExp(r'\s+'), '');
       final bytes = base64Decode(clean);
       if (!mounted) return;
 
