@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <meta name="theme-color" content="#00452f" />
-  <meta name="gastroorigen-preview" content="paso-3a-camara-preview" />
+  <meta name="gastroorigen-preview" content="paso-3b-openai-ready" />
   <title>GASTROORIGEN</title>
   <style>
     :root{
@@ -26,13 +26,15 @@
     .scanner-card{background:#fffaf0;border:1px solid var(--line);border-radius:24px;padding:18px;box-shadow:0 8px 22px rgba(0,69,47,.07)}
     .question{text-align:center;font-size:21px;font-weight:850;color:var(--forest);margin:2px 0 14px}.chips{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:18px}.chip{border:1px solid var(--line);background:#fffdf8;color:var(--muted);border-radius:999px;padding:9px 12px;font-weight:700;cursor:pointer}.chip.active{background:var(--soft);border-color:var(--gold);color:var(--forest)}
     .capture-box{position:relative;min-height:320px;border-radius:24px;overflow:hidden;background:linear-gradient(145deg,#063b2d,#002e20);border:1.5px solid var(--gold);display:grid;place-items:center}.capture-empty{text-align:center;color:#fff;padding:28px}.camera-icon{font-size:70px;opacity:.8}.frame{width:205px;height:205px;border:2px solid var(--maize);border-radius:26px;margin:8px auto 16px}.hint{font-size:14px;line-height:1.45;opacity:.92}
-    #cameraVideo{display:none;width:100%;height:360px;object-fit:cover;background:#062f25}#photoPreview{display:none;width:100%;height:360px;object-fit:contain;background:#062f25}.capture-box.camera-live .capture-empty{display:none}.capture-box.camera-live #cameraVideo{display:block}.capture-box.has-photo #cameraVideo{display:none}.photo-overlay{display:none;position:absolute;inset:auto 12px 12px 12px;background:rgba(0,45,32,.82);color:#fff;padding:10px 12px;border-radius:14px;font-size:12px}.capture-box.has-photo .capture-empty{display:none}.capture-box.has-photo #photoPreview,.capture-box.has-photo .photo-overlay{display:block}
-    .source-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}.capture-live{display:none;margin-top:10px}.capture-live.show{display:block}.source-btn{border-radius:16px;padding:13px 10px;font-weight:800;cursor:pointer}.source-camera{background:var(--forest);border:1px solid var(--forest);color:#fff}.source-gallery{background:#fffdf8;border:1.5px solid var(--chile);color:var(--chile)}
+    #photoPreview{display:none;width:100%;height:360px;object-fit:contain;background:#062f25}.photo-overlay{display:none;position:absolute;inset:auto 12px 12px 12px;background:rgba(0,45,32,.82);color:#fff;padding:10px 12px;border-radius:14px;font-size:12px}.capture-box.has-photo .capture-empty{display:none}.capture-box.has-photo #photoPreview,.capture-box.has-photo .photo-overlay{display:block}
+    .source-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}.source-btn{border-radius:16px;padding:13px 10px;font-weight:800;cursor:pointer}.source-camera{background:var(--forest);border:1px solid var(--forest);color:#fff}.source-gallery{background:#fffdf8;border:1.5px solid var(--chile);color:var(--chile)}
     .file-info{display:none;margin-top:12px;background:#f9efcf;border:1px solid #e6c96f;border-radius:14px;padding:11px 12px;color:var(--forest);font-size:13px;line-height:1.4}.file-info.show{display:block}.analyze{display:none;margin-top:12px}.analyze.show{display:block}.replace{display:none;margin-top:10px}.replace.show{display:block}
     .notice{display:none;margin-top:12px;border-radius:16px;padding:13px 14px;background:#edf6ef;border:1px solid #9bc0a7;color:var(--forest);font-size:13px;line-height:1.45}.notice.show{display:block}
     .privacy{margin:13px 2px 0;color:var(--muted);font-size:12px;line-height:1.45;text-align:center}.hidden-input{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
     .toast{position:fixed;z-index:20;left:50%;bottom:24px;transform:translateX(-50%);background:var(--forest);color:white;padding:10px 14px;border:1px solid var(--gold);border-radius:999px;opacity:0;pointer-events:none;transition:.2s;white-space:nowrap;max-width:90vw;overflow:hidden;text-overflow:ellipsis}.toast.show{opacity:1}
-    @media(max-width:430px){.wrap{padding:14px 14px 32px}.brand{padding:12px 14px}#brand-logo{width:min(100%,360px)}h2{font-size:23px}.capture-box{min-height:300px}#photoPreview{height:330px}.source-actions{grid-template-columns:1fr}}
+    .loading{display:inline-flex;align-items:center;gap:8px}.spinner{width:16px;height:16px;border:2px solid rgba(255,255,255,.35);border-top-color:#fff;border-radius:50%;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
+    .result-card{margin-top:14px;background:#fffdf8;border:1px solid #e5cf98;border-radius:20px;padding:16px;box-shadow:0 7px 18px rgba(0,69,47,.08)}.result-card h3{margin:0 0 4px;font-size:24px}.result-meta{color:var(--muted);font-size:13px;margin-bottom:12px}.confidence{display:inline-block;background:#edf6ef;border:1px solid #9bc0a7;color:var(--forest);padding:5px 9px;border-radius:999px;font-weight:800;font-size:12px}.result-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}.result-field{background:#fffaf0;border:1px solid #ead9aa;border-radius:14px;padding:10px}.result-field b{display:block;color:var(--chile);font-size:11px;text-transform:uppercase;letter-spacing:.05em;margin-bottom:3px}.result-section{margin-top:14px}.result-section b{color:var(--forest)}.result-section ul{margin:7px 0 0 18px;padding:0}.verification{margin-top:14px;background:#fff4e8;border-left:4px solid var(--gold);padding:10px 12px;border-radius:10px;font-size:12px;color:#5f5140}
+    @media(max-width:430px){.wrap{padding:14px 14px 32px}.brand{padding:12px 14px}#brand-logo{width:min(100%,360px)}h2{font-size:23px}.capture-box{min-height:300px}#photoPreview{height:330px}.source-actions{grid-template-columns:1fr}.result-grid{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
@@ -60,61 +62,51 @@
         </div>
         <div id="captureBox" class="capture-box">
           <div class="capture-empty"><div class="camera-icon">📷</div><div class="frame"></div><div class="hint">Toma una foto clara o elige una imagen de tu galería.</div></div>
-          <video id="cameraVideo" autoplay playsinline muted></video>
           <img id="photoPreview" alt="Previsualización de la imagen seleccionada" />
           <div id="photoOverlay" class="photo-overlay"></div>
         </div>
         <div class="source-actions">
-          <button id="cameraButton" class="source-btn source-camera">📷 ABRIR CÁMARA</button>
+          <button id="cameraButton" class="source-btn source-camera">📷 TOMAR FOTO</button>
           <button id="galleryButton" class="source-btn source-gallery">🖼️ ELEGIR DE GALERÍA</button>
         </div>
-        <button id="captureLiveButton" class="btn gold capture-live">📸 CAPTURAR FOTO</button>
-        <canvas id="captureCanvas" hidden></canvas>
         <input id="cameraInput" class="hidden-input" type="file" accept="image/*" capture="environment" />
         <input id="galleryInput" class="hidden-input" type="file" accept="image/*" />
         <div id="fileInfo" class="file-info"></div>
         <button id="analyzeButton" class="btn gold analyze">✨ ANALIZAR CON GASTROORIGEN</button>
         <button id="replaceButton" class="btn ghost replace">Cambiar fotografía</button>
-        <div id="analysisNotice" class="notice"><strong>Imagen lista.</strong> La captura y previsualización ya funcionan. El siguiente paso conectará este botón con OpenAI para identificar el ingrediente o platillo y generar su ficha gastronómica.</div>
-        <div class="privacy">La fotografía todavía no se envía a ningún servicio externo en este Paso 3A.</div>
+        <div id="analysisNotice" class="notice"></div>
+        <div id="resultCard" class="result-card" style="display:none"></div>
+        <div class="privacy">Al pulsar Analizar, la fotografía se envía al backend seguro de GASTROORIGEN para identificación visual.</div>
       </div>
     </section>
   </main>
   <div id="toast" class="toast"></div>
   <script>
-    const VERSION='20260814-1934-step3a';
+    const VERSION='20260814-1958-step3b';
     const logo=document.getElementById('brand-logo'); const logoStatus=document.getElementById('logo-status');
     (async()=>{try{const paths=['logo_v5/part01.txt','logo_v5/part02.txt','logo_v4/part02.txt','logo_v5/part05.txt','logo_v5/part06.txt','logo_v4/part04.txt'];const parts=await Promise.all(paths.map(async path=>{const r=await fetch(path+'?v='+VERSION,{cache:'no-store'});if(!r.ok)throw new Error(path);return(await r.text()).trim()}));logo.onload=()=>{logo.classList.add('ready');logoStatus.remove()};logo.onerror=()=>logoStatus.textContent='No se pudo cargar el logo.';logo.src='data:image/webp;base64,'+parts.join('')}catch(e){console.error(e);logoStatus.textContent='No se pudo cargar el logo.'}})();
 
     const home=document.getElementById('homeScreen'), scanner=document.getElementById('scannerScreen');
     const cameraInput=document.getElementById('cameraInput'), galleryInput=document.getElementById('galleryInput');
     const captureBox=document.getElementById('captureBox'), preview=document.getElementById('photoPreview'), overlay=document.getElementById('photoOverlay');
-    const cameraVideo=document.getElementById('cameraVideo'), captureCanvas=document.getElementById('captureCanvas'), captureLive=document.getElementById('captureLiveButton');
-    const fileInfo=document.getElementById('fileInfo'), analyze=document.getElementById('analyzeButton'), replace=document.getElementById('replaceButton'), notice=document.getElementById('analysisNotice');
-    let currentUrl=null, currentMode='Ingrediente', cameraStream=null;
+    const fileInfo=document.getElementById('fileInfo'), analyze=document.getElementById('analyzeButton'), replace=document.getElementById('replaceButton'), notice=document.getElementById('analysisNotice'), resultCard=document.getElementById('resultCard');
+    let currentUrl=null, currentMode='Ingrediente';
     function showScanner(){home.classList.remove('active');scanner.classList.add('active');window.scrollTo({top:0,behavior:'auto'})}
-    function showHome(){stopCamera();scanner.classList.remove('active');home.classList.add('active');window.scrollTo({top:0,behavior:'auto'})}
-    function resetPhoto(){stopCamera();if(currentUrl)URL.revokeObjectURL(currentUrl);currentUrl=null;preview.removeAttribute('src');captureBox.classList.remove('has-photo');fileInfo.classList.remove('show');analyze.classList.remove('show');replace.classList.remove('show');notice.classList.remove('show');cameraInput.value='';galleryInput.value=''}
-    async function startCamera(){
-      showScanner(); resetPhoto();
-      try{
-        if(!navigator.mediaDevices?.getUserMedia) throw new Error('camera unavailable');
-        cameraStream=await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'}},audio:false});
-        cameraVideo.srcObject=cameraStream;captureBox.classList.add('camera-live');captureLive.classList.add('show');
-      }catch(e){console.warn(e);showToast('No se pudo abrir la cámara; selecciona una fotografía.');setTimeout(()=>cameraInput.click(),100)}
-    }
-    function stopCamera(){if(cameraStream){cameraStream.getTracks().forEach(t=>t.stop());cameraStream=null}cameraVideo.srcObject=null;captureBox.classList.remove('camera-live');captureLive.classList.remove('show')}
-    function chooseGallery(){showScanner();setTimeout(()=>galleryInput.click(),0)}
-    document.getElementById('homeCamera').onclick=startCamera;document.getElementById('homeGallery').onclick=chooseGallery;
-    document.getElementById('cameraButton').onclick=startCamera;document.getElementById('galleryButton').onclick=()=>galleryInput.click();document.getElementById('backHome').onclick=showHome;document.getElementById('replaceButton').onclick=resetPhoto;
+    function showHome(){scanner.classList.remove('active');home.classList.add('active');window.scrollTo({top:0,behavior:'auto'})}
+    function resetPhoto(){if(currentUrl)URL.revokeObjectURL(currentUrl);currentUrl=null;preview.removeAttribute('src');captureBox.classList.remove('has-photo');fileInfo.classList.remove('show');analyze.classList.remove('show');replace.classList.remove('show');notice.classList.remove('show');resultCard.style.display='none';cameraInput.value='';galleryInput.value=''}
+    function choose(input){showScanner();setTimeout(()=>input.click(),0)}
+    document.getElementById('homeCamera').onclick=()=>choose(cameraInput);document.getElementById('homeGallery').onclick=()=>choose(galleryInput);
+    document.getElementById('cameraButton').onclick=()=>cameraInput.click();document.getElementById('galleryButton').onclick=()=>galleryInput.click();document.getElementById('backHome').onclick=showHome;document.getElementById('replaceButton').onclick=resetPhoto;
     document.querySelectorAll('.chip').forEach(chip=>chip.onclick=()=>{document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));chip.classList.add('active');currentMode=chip.dataset.mode;if(captureBox.classList.contains('has-photo'))overlay.textContent=currentMode+' · fotografía lista para analizar'});
-    function handleFile(file){if(!file)return;stopCamera();if(!file.type.startsWith('image/')){showToast('Selecciona una imagen válida.');return}if(currentUrl)URL.revokeObjectURL(currentUrl);currentUrl=URL.createObjectURL(file);preview.src=currentUrl;captureBox.classList.add('has-photo');overlay.textContent=currentMode+' · fotografía lista para analizar';const mb=(file.size/1024/1024).toFixed(file.size>1048576?1:2);fileInfo.innerHTML='<strong>Fotografía seleccionada</strong><br>'+escapeHtml(file.name)+' · '+mb+' MB';fileInfo.classList.add('show');analyze.classList.add('show');replace.classList.add('show');notice.classList.remove('show')}
-    captureLive.onclick=()=>{const w=cameraVideo.videoWidth,h=cameraVideo.videoHeight;if(!w||!h){showToast('La cámara todavía está iniciando.');return}captureCanvas.width=w;captureCanvas.height=h;captureCanvas.getContext('2d').drawImage(cameraVideo,0,0,w,h);captureCanvas.toBlob(blob=>{if(!blob)return;handleFile(new File([blob],'gastroorigen-captura.jpg',{type:'image/jpeg'}))},'image/jpeg',.92)};
+    function handleFile(file){if(!file)return;if(!file.type.startsWith('image/')){showToast('Selecciona una imagen válida.');return}if(currentUrl)URL.revokeObjectURL(currentUrl);currentUrl=URL.createObjectURL(file);preview.src=currentUrl;captureBox.classList.add('has-photo');overlay.textContent=currentMode+' · fotografía lista para analizar';const mb=(file.size/1024/1024).toFixed(file.size>1048576?1:2);fileInfo.innerHTML='<strong>Fotografía seleccionada</strong><br>'+escapeHtml(file.name)+' · '+mb+' MB';fileInfo.classList.add('show');analyze.classList.add('show');replace.classList.add('show');notice.classList.remove('show');resultCard.style.display='none'}
     cameraInput.onchange=e=>handleFile(e.target.files[0]);galleryInput.onchange=e=>handleFile(e.target.files[0]);
-    analyze.onclick=()=>{notice.classList.add('show');notice.scrollIntoView({behavior:'smooth',block:'nearest'})};
+    async function fileToDataUrl(file){return await new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(reader.result);reader.onerror=reject;reader.readAsDataURL(file)})}
+    function arrList(items){return Array.isArray(items)&&items.length?'<ul>'+items.map(x=>'<li>'+escapeHtml(String(x))+'</li>').join('')+'</ul>':'<span style="color:var(--muted)">No aplica / por validar</span>'}
+    function renderResult(r){resultCard.innerHTML=`<span class="confidence">Confianza ${Number(r.confidence||0)}%</span><h3>${escapeHtml(r.name||'Identificación incierta')}</h3><div class="result-meta">${escapeHtml(r.category||'incierto')} ${r.scientific_name?'· <i>'+escapeHtml(r.scientific_name)+'</i>':''}</div><div class="result-grid"><div class="result-field"><b>Tipo</b>${escapeHtml(r.type||'Por validar')}</div><div class="result-field"><b>Origen</b>${escapeHtml(r.origin||'Por validar')}</div><div class="result-field"><b>Región</b>${escapeHtml(r.region||'Por validar')}</div><div class="result-field"><b>Scoville</b>${escapeHtml(r.scoville||'No aplica')}</div></div><div class="result-section"><b>Características</b>${arrList(r.characteristics)}</div><div class="result-section"><b>Usos gastronómicos</b>${arrList(r.uses)}</div><div class="result-section"><b>Acompañamientos</b>${arrList(r.accompaniments)}</div><div class="result-section"><b>Salsas</b>${arrList(r.sauces)}</div><div class="result-section"><b>Historia</b><p>${escapeHtml(r.history||'Por validar con la base editorial de GASTROORIGEN.')}</p></div><div class="result-section"><b>Nota cultural</b><p>${escapeHtml(r.cultural_note||'Por validar.')}</p></div>${Array.isArray(r.alternatives)&&r.alternatives.length?'<div class="result-section"><b>Otras posibilidades</b>'+arrList(r.alternatives.map(a=>a.name+' · '+a.confidence+'%'))+'</div>':''}<div class="verification"><strong>Validación editorial:</strong> ${escapeHtml(r.verification_note||'Los datos culturales e históricos deben contrastarse con la base GASTROORIGEN.')}</div>`;resultCard.style.display='block';resultCard.scrollIntoView({behavior:'smooth',block:'start'})}
+    analyze.onclick=async()=>{const file=(cameraInput.files&&cameraInput.files[0])||(galleryInput.files&&galleryInput.files[0]);if(!file){showToast('Selecciona o captura una fotografía primero.');return}const original=analyze.innerHTML;analyze.disabled=true;analyze.innerHTML='<span class="loading"><span class="spinner"></span> Analizando imagen…</span>';notice.classList.remove('show');resultCard.style.display='none';try{const image=await fileToDataUrl(file);const response=await fetch('https://gastroorigen-api.vercel.app/api/analyze',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({image,mode:currentMode})});const data=await response.json();if(!response.ok)throw new Error(data.detail||data.error||'No se pudo analizar la imagen.');renderResult(data.result)}catch(error){notice.innerHTML='<strong>No fue posible analizar todavía.</strong><br>'+escapeHtml(error.message||String(error));notice.classList.add('show');notice.scrollIntoView({behavior:'smooth',block:'nearest'})}finally{analyze.disabled=false;analyze.innerHTML=original}};
     document.querySelectorAll('[data-coming]').forEach(el=>el.onclick=()=>showToast(el.dataset.coming+' se conectará después del escáner.'));
     const toast=document.getElementById('toast');function showToast(t){toast.textContent=t;toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),1900)}
-    function escapeHtml(v){return v.replace(/[&<>'\"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','\"':'&quot;'}[c]))}
+    function escapeHtml(v){return String(v).replace(/[&<>'\"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','\"':'&quot;'}[c]))}
   </script>
 </body>
 </html>
