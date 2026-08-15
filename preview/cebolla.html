@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#00452f" />
+  <title>Cebolla · GASTROORIGEN</title>
+  <style>
+    :root{--bg:#fbf4e7;--card:#fffdf8;--forest:#00452f;--chile:#a62c18;--gold:#d59a1c;--maize:#f1c15b;--soft:#f4e3b6;--line:#d9b86a;--text:#17251f;--muted:#69685f}
+    *{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#fbf4e7,#f7ead0);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;min-height:100vh}.wrap{max-width:560px;margin:auto;padding:16px 18px 44px}.topbar{display:flex;align-items:center;gap:12px;margin-bottom:14px}.back{display:grid;place-items:center;width:42px;height:42px;border-radius:50%;text-decoration:none;background:#fffaf0;border:1px solid var(--line);color:var(--forest);font-size:25px}.top-title{font-weight:850;color:var(--forest);font-size:19px}.brand{background:#fffaf0;border:1.5px solid var(--line);border-radius:22px;padding:10px 15px;display:flex;justify-content:center;box-shadow:0 7px 20px rgba(0,69,47,.07)}#brand-logo{width:min(100%,360px);height:auto;opacity:0}#brand-logo.ready{opacity:1}.logo-status{padding:18px;color:var(--forest);font-size:12px}
+    .hero{margin-top:16px;background:linear-gradient(145deg,#063b2d,#002e20);border:1.5px solid var(--gold);border-radius:26px;overflow:hidden;position:relative;min-height:330px;display:grid;place-items:center}.hero svg{width:88%;max-width:410px;height:auto;filter:drop-shadow(0 22px 20px rgba(0,0,0,.28))}.badge{position:absolute;left:14px;top:14px;background:#fffaf0;border:1px solid var(--maize);color:var(--forest);padding:7px 10px;border-radius:999px;font-size:12px;font-weight:800}.hero-note{position:absolute;right:14px;bottom:14px;background:rgba(0,45,32,.82);color:#fff;padding:7px 9px;border-radius:12px;font-size:11px}
+    .result{margin-top:14px;background:var(--card);border:1px solid #e5cf98;border-radius:22px;padding:18px;box-shadow:0 8px 22px rgba(0,69,47,.08)}.confidence{display:inline-block;background:#edf6ef;border:1px solid #9bc0a7;color:var(--forest);padding:5px 9px;border-radius:999px;font-weight:800;font-size:12px}.result h1{margin:8px 0 2px;color:var(--forest);font-size:31px}.latin{font-size:14px;color:var(--muted);margin-bottom:15px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.field{background:#fffaf0;border:1px solid #ead9aa;border-radius:14px;padding:11px}.field b{display:block;color:var(--chile);font-size:11px;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}.section{margin-top:16px}.section h3{color:var(--forest);margin:0 0 7px;font-size:17px}.section p{margin:0;line-height:1.52;color:#3d413c}.section ul{margin:6px 0 0 19px;padding:0;line-height:1.52}.editorial{margin-top:17px;background:#fff4e8;border-left:4px solid var(--gold);border-radius:10px;padding:11px 12px;font-size:12px;color:#5f5140}.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}.btn{display:block;text-align:center;text-decoration:none;border-radius:17px;padding:14px 12px;font-weight:850;font-size:13px}.primary{background:var(--forest);color:white;border:1px solid var(--forest)}.secondary{background:#fffaf0;color:var(--chile);border:1.5px solid var(--chile)}@media(max-width:430px){.wrap{padding:13px 13px 34px}.hero{min-height:300px}.grid,.actions{grid-template-columns:1fr}.result h1{font-size:28px}}
+  </style>
+</head>
+<body>
+<main class="wrap">
+  <div class="topbar"><a class="back" href="./" aria-label="Regresar">‹</a><div class="top-title">Ficha GASTROORIGEN</div></div>
+  <section class="brand"><img id="brand-logo" alt="GASTROORIGEN"/><span id="logo-status" class="logo-status">Cargando GASTROORIGEN…</span></section>
+  <section class="hero">
+    <div class="badge">🧅 INGREDIENTE IDENTIFICADO</div>
+    <svg viewBox="0 0 500 360" role="img" aria-label="Ilustración de una cebolla blanca">
+      <defs>
+        <radialGradient id="bulb" cx="38%" cy="30%" r="72%"><stop offset="0" stop-color="#fffef4"/><stop offset=".55" stop-color="#f2e4b8"/><stop offset="1" stop-color="#c99a53"/></radialGradient>
+        <linearGradient id="skin" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e8c57d"/><stop offset="1" stop-color="#9b5e2f"/></linearGradient>
+        <linearGradient id="stem" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#d7b374"/><stop offset="1" stop-color="#80542c"/></linearGradient>
+      </defs>
+      <ellipse cx="252" cy="318" rx="145" ry="22" fill="#001d15" opacity=".45"/>
+      <path d="M247 78c-12-24-8-50 7-65 10 18 15 39 9 65z" fill="url(#stem)"/>
+      <path d="M251 70c-17-20-22-41-15-60 15 15 25 33 24 60z" fill="#b4874d" opacity=".85"/>
+      <path d="M252 78c-37 23-69 45-99 83-34 44-45 101-22 136 22 34 68 51 121 51s99-17 121-51c23-35 12-92-22-136-30-38-62-60-99-83z" fill="url(#bulb)" stroke="#a66b36" stroke-width="5"/>
+      <path d="M252 87c-54 51-75 130-64 223" fill="none" stroke="#c49a5c" stroke-width="3" opacity=".75"/>
+      <path d="M252 87c54 51 75 130 64 223" fill="none" stroke="#c49a5c" stroke-width="3" opacity=".75"/>
+      <path d="M252 90c-26 60-35 138-28 226" fill="none" stroke="#e3c883" stroke-width="2.5" opacity=".9"/>
+      <path d="M252 90c26 60 35 138 28 226" fill="none" stroke="#d5b16b" stroke-width="2.5" opacity=".9"/>
+      <path d="M174 142c-24 48-31 105-17 154" fill="none" stroke="url(#skin)" stroke-width="4" opacity=".6"/>
+      <path d="M330 142c24 48 31 105 17 154" fill="none" stroke="url(#skin)" stroke-width="4" opacity=".6"/>
+      <path d="M218 337q-32 13-48 18M238 340q-12 11-20 17M262 340q14 11 21 17M282 337q33 13 50 17" fill="none" stroke="#b98a49" stroke-width="4" stroke-linecap="round"/>
+      <ellipse cx="252" cy="333" rx="39" ry="10" fill="#b47a3f" opacity=".65"/>
+      <ellipse cx="207" cy="166" rx="33" ry="70" fill="#fff" opacity=".17" transform="rotate(20 207 166)"/>
+    </svg>
+    <div class="hero-note">Imagen ilustrativa para la prueba</div>
+  </section>
+
+  <section class="result">
+    <span class="confidence">Ficha demostrativa · 100%</span>
+    <h1>Cebolla</h1>
+    <div class="latin"><i>Allium cepa</i> L.</div>
+    <div class="grid">
+      <div class="field"><b>Tipo</b>Hortaliza de bulbo y condimento</div>
+      <div class="field"><b>Origen</b>Asia occidental y central</div>
+      <div class="field"><b>Región en México</b>Cultivada y consumida en todo el país</div>
+      <div class="field"><b>Scoville</b>No aplica</div>
+    </div>
+
+    <div class="section"><h3>Características</h3><ul><li>Bulbo formado por capas carnosas.</li><li>Sabor pungente cuando está cruda y más dulce al cocinarse.</li><li>Existen variedades blancas, amarillas y moradas.</li><li>Su aroma característico proviene de compuestos azufrados.</li></ul></div>
+    <div class="section"><h3>Usos en la gastronomía mexicana</h3><ul><li>Salsas crudas y cocidas.</li><li>Tacos, antojitos y garnachas.</li><li>Guisados, sopas, caldos y arroces.</li><li>Escabeches, encurtidos y cebolla curtida.</li><li>Pico de gallo y preparaciones con jitomate, chile, cilantro y limón.</li></ul></div>
+    <div class="section"><h3>Acompañamientos frecuentes</h3><ul><li>Cilantro y limón.</li><li>Chile fresco o seco.</li><li>Jitomate y tomate verde.</li><li>Ajo, especias y hierbas aromáticas.</li></ul></div>
+    <div class="section"><h3>Salsas y preparaciones</h3><ul><li>Salsa mexicana / pico de gallo.</li><li>Salsa verde.</li><li>Salsa roja.</li><li>Xnipec, comúnmente preparado con cebolla morada.</li></ul></div>
+    <div class="section"><h3>Historia</h3><p>La cebolla fue domesticada en el Viejo Mundo y se cultiva desde la antigüedad. Llegó a la Nueva España durante el periodo colonial y terminó integrándose de forma profunda a las cocinas regionales de México.</p></div>
+    <div class="section"><h3>Nota cultural</h3><p>En México funciona tanto como ingrediente base de cocina como guarnición fresca. Es especialmente visible en taquerías, salsas, encurtidos y preparaciones donde se combina con chile, cilantro y limón.</p></div>
+    <div class="editorial"><strong>Prueba de diseño:</strong> esta ficha usa información cargada manualmente para validar cómo se verá el resultado de GASTROORIGEN. Más adelante, la identificación automática llenará estos mismos campos y la base editorial podrá validar historia, origen y contexto cultural.</div>
+    <div class="actions"><a class="btn primary" href="./">📷 Probar otra fotografía</a><a class="btn secondary" href="./">← Volver al inicio</a></div>
+  </section>
+</main>
+<script>
+  const VERSION='20260814-cebolla-demo';const logo=document.getElementById('brand-logo');const status=document.getElementById('logo-status');
+  (async()=>{try{const paths=['logo_v5/part01.txt','logo_v5/part02.txt','logo_v4/part02.txt','logo_v5/part05.txt','logo_v5/part06.txt','logo_v4/part04.txt'];const parts=await Promise.all(paths.map(async p=>{const r=await fetch(p+'?v='+VERSION,{cache:'no-store'});if(!r.ok)throw new Error(p);return(await r.text()).trim()}));logo.onload=()=>{logo.classList.add('ready');status.remove()};logo.src='data:image/webp;base64,'+parts.join('')}catch(e){status.textContent='GASTROORIGEN'}})();
+</script>
+</body></html>
