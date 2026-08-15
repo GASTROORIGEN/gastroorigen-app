@@ -4,14 +4,14 @@ publish_to: 'none'
 description: MVP de la app GASTROORIGEN para Android y iOS.
 
 environment:
-  sdk: '>=3.3.0 <4.0.0'
+  sdk: '>=3.4.0 <4.0.0'
 
 dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.8
   image_picker: 1.1.2
-  http: ^1.2.2
+  http: ^1.6.0
 
 dev_dependencies:
   flutter_test:
