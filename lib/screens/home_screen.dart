@@ -1,12 +1,22 @@
 import 'package:flutter/material.dart';
+
 import '../widgets/feature_card.dart';
+import 'scanner_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   void _comingSoon(BuildContext context, String feature) {
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('$feature se conectará en el siguiente paso.')),
+      SnackBar(content: Text('$feature se conectará después del escáner.')),
+    );
+  }
+
+  void _openScanner(BuildContext context, ScannerEntry entry) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (_) => ScannerScreen(entry: entry),
+      ),
     );
   }
 
@@ -27,7 +37,10 @@ class HomeScreen extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: const Color(0xFFFFFAF0),
                   borderRadius: BorderRadius.circular(24),
-                  border: Border.all(color: const Color(0xFFD9B86A), width: 1.5),
+                  border: Border.all(
+                    color: const Color(0xFFD9B86A),
+                    width: 1.5,
+                  ),
                   boxShadow: const [
                     BoxShadow(
                       color: Color(0x1200452F),
@@ -77,7 +90,7 @@ class HomeScreen extends StatelessWidget {
               ),
               const SizedBox(height: 28),
               FilledButton.icon(
-                onPressed: () => _comingSoon(context, 'El escáner'),
+                onPressed: () => _openScanner(context, ScannerEntry.camera),
                 icon: const Icon(Icons.center_focus_strong_rounded, size: 28),
                 label: const Padding(
                   padding: EdgeInsets.symmetric(vertical: 16),
@@ -95,7 +108,7 @@ class HomeScreen extends StatelessWidget {
               ),
               const SizedBox(height: 14),
               OutlinedButton.icon(
-                onPressed: () => _comingSoon(context, 'Galería'),
+                onPressed: () => _openScanner(context, ScannerEntry.gallery),
                 icon: const Icon(Icons.photo_library_outlined),
                 label: const Padding(
                   padding: EdgeInsets.symmetric(vertical: 13),
