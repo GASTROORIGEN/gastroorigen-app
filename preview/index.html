@@ -3,17 +3,17 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="gastroorigen-preview" content="logo-fix-v4-2026-08-14" />
+  <meta name="gastroorigen-preview" content="logo-fix-v6-exacto" />
   <title>GASTROORIGEN</title>
   <style>
     :root{--bg:#f7f0e6;--card:#fffaf3;--accent:#7a3e24;--soft:#f0e0c8;--line:#d7be9b;--text:#2d241f}
     *{box-sizing:border-box}
     body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
     .wrap{max-width:520px;margin:auto;padding:20px 20px 40px}
-    .brand{background:var(--soft);border:1px solid var(--line);border-radius:24px;padding:16px 18px;display:flex;align-items:center;justify-content:center;overflow:hidden;min-height:180px}
-    #brand-logo{display:block;width:min(100%,400px);height:auto;max-height:280px;object-fit:contain;object-position:center;margin:0 auto;opacity:0;transition:opacity .15s ease}
+    .brand{background:var(--soft);border:1px solid var(--line);border-radius:24px;padding:14px 18px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+    #brand-logo{display:block;width:min(100%,400px);height:auto;object-fit:contain;object-position:center;margin:0 auto;opacity:0;transition:opacity .15s ease}
     #brand-logo.ready{opacity:1}
-    .logo-status{text-align:center;font-size:12px;opacity:.65}
+    .logo-status{text-align:center;font-size:12px;opacity:.65;padding:28px 0}
     h2{text-align:center;margin:30px 0 10px;font-size:25px}
     .lead{text-align:center;line-height:1.5;margin:0 0 26px}
     .btn{width:100%;border:0;border-radius:18px;padding:17px 16px;font-weight:800;font-size:14px;cursor:pointer}
@@ -24,7 +24,7 @@
     .icon{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:var(--soft);font-size:23px}
     .copy{flex:1}.title{font-weight:800}.sub{font-size:14px;line-height:1.4;margin-top:4px;opacity:.78}.arrow{font-size:24px;opacity:.55}
     .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#2d241f;color:white;padding:10px 14px;border-radius:999px;opacity:0;pointer-events:none;transition:.2s}.toast.show{opacity:1}
-    @media(max-width:430px){.wrap{padding:14px 14px 32px}.brand{padding:12px 14px;min-height:160px}#brand-logo{width:min(100%,360px);max-height:250px}h2{font-size:23px}}
+    @media(max-width:430px){.wrap{padding:14px 14px 32px}.brand{padding:12px 14px}#brand-logo{width:min(100%,360px)}h2{font-size:23px}}
   </style>
 </head>
 <body>
@@ -44,12 +44,19 @@
   </main>
   <div id="toast" class="toast"></div>
   <script>
-    const VERSION='20260814-1853-v4';
+    const VERSION='20260814-1905-v6';
     const logo=document.getElementById('brand-logo');
     const logoStatus=document.getElementById('logo-status');
     (async()=>{
       try{
-        const paths=['logo_v4/part01.txt','logo_v4/part02.txt','logo_v4/part03.txt','logo_v4/part04.txt'];
+        const paths=[
+          'logo_v5/part01.txt',
+          'logo_v5/part02.txt',
+          'logo_v4/part02.txt',
+          'logo_v5/part05.txt',
+          'logo_v5/part06.txt',
+          'logo_v4/part04.txt'
+        ];
         const parts=await Promise.all(paths.map(async path=>{
           const response=await fetch(path+'?v='+VERSION,{cache:'no-store'});
           if(!response.ok) throw new Error('No se pudo cargar '+path);
