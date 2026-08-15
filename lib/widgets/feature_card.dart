@@ -46,10 +46,6 @@ class FeatureCard extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 4),
-                    const Text(
-                      '',
-                      style: TextStyle(height: 0),
-                    ),
                     Text(
                       subtitle,
                       style: const TextStyle(
