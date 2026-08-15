@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -14,13 +16,32 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   static const _duration = Duration(milliseconds: 2800);
+  static const _background = Color(0xFF0C2A18);
+
   Timer? _timer;
+  Uint8List? _imageBytes;
   bool _navigated = false;
 
   @override
   void initState() {
     super.initState();
-    _timer = Timer(_duration, _openHome);
+    _loadSplash();
+  }
+
+  Future<void> _loadSplash() async {
+    try {
+      final encoded = await rootBundle.loadString(
+        'assets/branding/splash_base64.txt',
+      );
+      final clean = encoded.replaceAll(RegExp(r'\s+'), '');
+      final bytes = base64Decode(clean);
+      if (!mounted) return;
+
+      setState(() => _imageBytes = bytes);
+      _timer = Timer(_duration, _openHome);
+    } catch (_) {
+      _timer = Timer(const Duration(milliseconds: 700), _openHome);
+    }
   }
 
   void _openHome() {
@@ -46,31 +67,32 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    const background = Color(0xFF0C2A18);
-
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: const SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
         statusBarIconBrightness: Brightness.light,
         statusBarBrightness: Brightness.dark,
-        systemNavigationBarColor: background,
+        systemNavigationBarColor: _background,
         systemNavigationBarIconBrightness: Brightness.light,
       ),
       child: Scaffold(
-        backgroundColor: background,
+        backgroundColor: _background,
         body: GestureDetector(
           behavior: HitTestBehavior.opaque,
           onTap: _openHome,
           child: SizedBox.expand(
-            child: Image.asset(
-              'assets/branding/splash_1080x1920.webp',
-              fit: BoxFit.contain,
-              alignment: Alignment.center,
-              filterQuality: FilterQuality.high,
-              errorBuilder: (context, error, stackTrace) {
-                return const ColoredBox(color: background);
-              },
-            ),
+            child: _imageBytes == null
+                ? const ColoredBox(color: _background)
+                : Image.memory(
+                    _imageBytes!,
+                    fit: BoxFit.contain,
+                    alignment: Alignment.center,
+                    filterQuality: FilterQuality.high,
+                    gaplessPlayback: true,
+                    errorBuilder: (context, error, stackTrace) {
+                      return const ColoredBox(color: _background);
+                    },
+                  ),
           ),
         ),
       ),
