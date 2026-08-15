@@ -98,9 +98,13 @@ class _SplashScreenState extends State<SplashScreen> {
           behavior: HitTestBehavior.opaque,
           onTap: _openHome,
           child: SizedBox.expand(
-            child: _imageBytes == null
-                ? const ColoredBox(color: _background)
-                : Image.memory(
+            child: Stack(
+              fit: StackFit.expand,
+              children: [
+                if (_imageBytes == null)
+                  const ColoredBox(color: _background)
+                else
+                  Image.memory(
                     _imageBytes!,
                     fit: BoxFit.contain,
                     alignment: Alignment.center,
@@ -110,6 +114,32 @@ class _SplashScreenState extends State<SplashScreen> {
                       return const ColoredBox(color: _background);
                     },
                   ),
+                // La última zona de la antigua codificación WebP podía mostrar
+                // macro-bloques en ciertos decodificadores. La transición usa
+                // el verde institucional y evita que esa zona sea visible.
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: FractionallySizedBox(
+                    widthFactor: 1,
+                    heightFactor: 0.31,
+                    child: DecoratedBox(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            _background.withValues(alpha: 0),
+                            _background,
+                            _background,
+                          ],
+                          stops: const [0, 0.30, 1],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
