@@ -1,0 +1,53 @@
+name: Verificar preparación móvil GASTROORIGEN
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  flutter-preflight:
+    name: Flutter / Android preflight
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Instalar Java
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Instalar Flutter estable
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Mostrar versiones
+        run: |
+          flutter --version
+          java -version
+
+      - name: Generar envolturas móviles temporales
+        run: flutter create --platforms=android,ios .
+
+      - name: Instalar dependencias
+        run: flutter pub get
+
+      - name: Analizar código
+        run: flutter analyze
+
+      - name: Compilar APK de prueba
+        run: flutter build apk --debug
+
+      - name: Resumen
+        if: always()
+        run: |
+          echo "### GASTROORIGEN mobile preflight" >> "$GITHUB_STEP_SUMMARY"
+          echo "Se validó la generación de plataformas móviles, dependencias, análisis estático y compilación Android de prueba." >> "$GITHUB_STEP_SUMMARY"
+          echo "La firma de producción y el build iOS final requieren las cuentas oficiales y un entorno macOS/Xcode." >> "$GITHUB_STEP_SUMMARY"
