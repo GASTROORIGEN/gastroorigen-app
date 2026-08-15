@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <meta name="theme-color" content="#00452f" />
-  <meta name="gastroorigen-preview" content="gemini-google-v1" />
+  <meta name="gastroorigen-preview" content="ia-gastroorigen-v1" />
   <title>GASTROORIGEN</title>
   <style>
     :root{--bg:#fbf4e7;--card:#fffdf8;--forest:#00452f;--forest2:#006044;--chile:#a62c18;--gold:#d59a1c;--maize:#f1c15b;--soft:#f4e3b6;--line:#d9b86a;--text:#17251f;--muted:#69685f;--error:#842a18}
@@ -26,30 +26,30 @@
   <section id="home" class="screen active">
     <section class="brand"><img id="brand-logo" alt="GASTROORIGEN"><span id="logo-status" class="logo-status">Cargando GASTROORIGEN…</span></section>
     <h2>¿Qué quieres descubrir hoy?</h2>
-    <p class="lead">Toma una foto y GASTROORIGEN usa Gemini + Google para identificar el ingrediente o platillo y construir su ficha gastronómica.</p>
+    <p class="lead">Toma una foto y la IA GASTROORIGEN identifica el ingrediente o platillo y construye su ficha gastronómica.</p>
     <button id="openCamera" class="btn primary">📷 ESCANEAR INGREDIENTE O PLATILLO</button>
     <button id="openGallery" class="btn secondary">🖼️ SUBIR UNA FOTOGRAFÍA</button>
     <div class="section">Inteligencia GASTROORIGEN</div>
-    <div class="card"><div class="icon">✨</div><div class="copy"><div class="title">Gemini Vision</div><div class="sub">Identificación visual automática de ingredientes y platillos.</div></div></div>
-    <div class="card"><div class="icon">G</div><div class="copy"><div class="title">Google</div><div class="sub">Fundamentación para origen, historia, usos y contexto cultural cuando esté disponible.</div></div></div>
+    <div class="card"><div class="icon">✨</div><div class="copy"><div class="title">IA GASTROORIGEN</div><div class="sub">Identificación visual automática de ingredientes y platillos.</div></div></div>
+    <div class="card"><div class="icon">G</div><div class="copy"><div class="title">Fuentes verificadas</div><div class="sub">Consulta de fuentes públicas para origen, historia, usos y contexto cultural cuando esté disponible.</div></div></div>
   </section>
 
   <section id="scanner" class="screen">
     <div class="topbar"><button id="back" class="back">‹</button><div class="top-title">Cámara inteligente GASTROORIGEN</div></div>
     <div class="scanner-card">
-      <div class="provider"><span class="ai-pill">✨ Gemini 2.5 Flash + Google</span></div>
+      <div class="provider"><span class="ai-pill">✨ IA GASTROORIGEN</span></div>
       <div class="question">¿Qué quieres identificar?</div>
       <div class="chips"><button class="chip active" data-mode="Ingrediente">Ingrediente</button><button class="chip" data-mode="Platillo">Platillo</button><button class="chip" data-mode="No estoy seguro">No estoy seguro</button></div>
       <div id="captureBox" class="capture-box"><div class="capture-empty"><div class="camera-icon">📷</div><div class="frame"></div><div class="hint">Toma una foto clara, centrada y con buena luz.</div></div><img id="photoPreview" alt="Fotografía capturada"><div id="overlay" class="photo-overlay"></div></div>
       <div class="source-actions"><button id="cameraBtn" class="source-btn source-camera">📷 TOMAR FOTO</button><button id="galleryBtn" class="source-btn source-gallery">🖼️ GALERÍA</button></div>
       <input id="cameraInput" class="hidden-input" type="file" accept="image/*" capture="environment"><input id="galleryInput" class="hidden-input" type="file" accept="image/*">
-      <div id="status" class="status"></div><button id="retry" class="btn retry">↻ REINTENTAR CON GEMINI</button><button id="replace" class="btn replace">Cambiar fotografía</button><div id="result" class="result"></div>
-      <div class="privacy">La fotografía se envía al backend seguro de GASTROORIGEN y de ahí a Gemini. En el nivel gratuito de Gemini, Google indica que el contenido puede usarse para mejorar sus productos.</div>
+      <div id="status" class="status"></div><button id="retry" class="btn retry">↻ REINTENTAR ANÁLISIS</button><button id="replace" class="btn replace">Cambiar fotografía</button><div id="result" class="result"></div>
+      <div class="privacy">La fotografía se procesa mediante la IA GASTROORIGEN para identificar el elemento y construir su ficha. El procesamiento se realiza a través de servicios externos de inteligencia artificial configurados de forma segura en el servidor.</div>
     </div>
   </section>
 </main>
 <script>
-const VERSION='20260814-gemini-google-v1';
+const VERSION='20260814-ia-gastroorigen-v1';
 const API='https://gastroorigen-api.vercel.app/api/analyze';
 const logo=document.getElementById('brand-logo'),logoStatus=document.getElementById('logo-status');
 (async()=>{try{const paths=['logo_v5/part01.txt','logo_v5/part02.txt','logo_v4/part02.txt','logo_v5/part05.txt','logo_v5/part06.txt','logo_v4/part04.txt'];const parts=await Promise.all(paths.map(async p=>{const r=await fetch(p+'?v='+VERSION,{cache:'no-store'});if(!r.ok)throw new Error(p);return(await r.text()).trim()}));logo.onload=()=>{logo.classList.add('ready');logoStatus.remove()};logo.src='data:image/webp;base64,'+parts.join('')}catch(e){logoStatus.textContent='GASTROORIGEN'}})();
@@ -66,10 +66,10 @@ function render(r,sources){let html='<span class="confidence">Confianza visual '
 html+='<div class="result-grid"><div class="field"><b>Tipo</b>'+esc(r.type||'Por determinar')+'</div><div class="field"><b>Origen</b>'+esc(r.origin||'Por validar')+'</div><div class="field"><b>Región en México</b>'+esc(r.mexico_region||'Por validar')+'</div><div class="field"><b>Scoville</b>'+esc(r.scoville||'No aplica')+'</div></div>';
 html+=section('Descripción','<div>'+esc(r.description||'')+'</div>')+section('Características',list(r.characteristics))+section('Perfil de sabor',list(r.flavor_profile))+section('Usos gastronómicos',list(r.uses))+section('Platillos donde se utiliza',list(r.dishes))+section('Ingredientes principales',list(r.main_ingredients))+section('Preparación','<div>'+esc(r.preparation||'')+'</div>')+section('Acompañamientos',list(r.accompaniments))+section('Salsas',list(r.sauces))+section('Variantes',list(r.variants))+section('Temporalidad','<div>'+esc(r.seasonality||'')+'</div>')+section('Historia','<div>'+esc(r.history||'')+'</div>')+section('Nota cultural','<div>'+esc(r.cultural_note||'')+'</div>');
 if(r.needs_better_photo)html+='<div class="result-section"><strong>Mejorar fotografía</strong><div>'+esc(r.capture_guidance||'Toma otra foto más clara y cercana.')+'</div></div>';
-if(Array.isArray(sources)&&sources.length){html+='<div class="sources"><strong>Fuentes encontradas con Google</strong>'+sources.map(s=>'<a href="'+esc(s.url)+'" target="_blank" rel="noopener">'+esc(s.title||s.url)+'</a>').join('')+'</div>'}
+if(Array.isArray(sources)&&sources.length){html+='<div class="sources"><strong>Fuentes consultadas</strong>'+sources.map(s=>'<a href="'+esc(s.url)+'" target="_blank" rel="noopener">'+esc(s.title||s.url)+'</a>').join('')+'</div>'}
 result.innerHTML=html;result.classList.add('show');result.scrollIntoView({behavior:'smooth',block:'nearest'})}
-async function analyzeCurrent(){if(!currentFile||analyzing)return;analyzing=true;clearOutput();overlay.innerHTML='<span class="spinner"></span>Gemini está analizando…';setStatus('<span class="spinner"></span><strong>Gemini + Google activos.</strong> Identificando la fotografía y construyendo la ficha.');try{const image=await compressToDataUrl(currentFile);const response=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({image,mode:currentMode,source:cameraInput.files&&cameraInput.files[0]===currentFile?'camera':'gallery'})});const data=await response.json();if(!response.ok)throw new Error(data.detail||data.error||'No se pudo analizar la fotografía.');overlay.textContent=(data.result.name||'Resultado')+' · '+Number(data.result.confidence||0)+'%';setStatus('<strong>Ficha generada con Gemini.</strong> Revisa la información y las fuentes debajo.');render(data.result,data.sources||[]);retry.classList.add('show');replace.classList.add('show')}catch(e){overlay.textContent='Foto lista · Gemini pendiente';setStatus('<strong>No se pudo iniciar Gemini.</strong><br>'+esc(e.message||String(e)),true);retry.classList.add('show');replace.classList.add('show')}finally{analyzing=false}}
-function handle(file){if(!file||!file.type.startsWith('image/'))return;currentFile=file;if(currentUrl)URL.revokeObjectURL(currentUrl);currentUrl=URL.createObjectURL(file);preview.src=currentUrl;captureBox.classList.add('has-photo');overlay.textContent='Foto capturada · iniciando Gemini…';replace.classList.add('show');analyzeCurrent()}
+async function analyzeCurrent(){if(!currentFile||analyzing)return;analyzing=true;clearOutput();overlay.innerHTML='<span class="spinner"></span>IA GASTROORIGEN está analizando…';setStatus('<span class="spinner"></span><strong>IA GASTROORIGEN activa.</strong> Identificando la fotografía y construyendo la ficha.');try{const image=await compressToDataUrl(currentFile);const response=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({image,mode:currentMode,source:cameraInput.files&&cameraInput.files[0]===currentFile?'camera':'gallery'})});const data=await response.json();if(!response.ok)throw new Error(data.detail||data.error||'No se pudo analizar la fotografía.');overlay.textContent=(data.result.name||'Resultado')+' · '+Number(data.result.confidence||0)+'%';setStatus('<strong>Ficha generada por IA GASTROORIGEN.</strong> Revisa la información y las fuentes debajo.');render(data.result,data.sources||[]);retry.classList.add('show');replace.classList.add('show')}catch(e){overlay.textContent='Foto lista · análisis pendiente';setStatus('<strong>No se pudo iniciar la IA GASTROORIGEN.</strong><br>'+esc(e.message||String(e)),true);retry.classList.add('show');replace.classList.add('show')}finally{analyzing=false}}
+function handle(file){if(!file||!file.type.startsWith('image/'))return;currentFile=file;if(currentUrl)URL.revokeObjectURL(currentUrl);currentUrl=URL.createObjectURL(file);preview.src=currentUrl;captureBox.classList.add('has-photo');overlay.textContent='Foto capturada · iniciando IA…';replace.classList.add('show');analyzeCurrent()}
 cameraInput.onchange=e=>handle(e.target.files[0]);galleryInput.onchange=e=>handle(e.target.files[0]);retry.onclick=analyzeCurrent;replace.onclick=()=>{currentFile=null;if(currentUrl)URL.revokeObjectURL(currentUrl);currentUrl=null;preview.removeAttribute('src');captureBox.classList.remove('has-photo');cameraInput.value='';galleryInput.value='';clearOutput();replace.classList.remove('show')};
 </script>
 </body></html>
