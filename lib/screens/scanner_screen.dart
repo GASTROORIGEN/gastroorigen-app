@@ -13,6 +13,8 @@ class _ScannerScreenState extends State<ScannerScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
+
     return Scaffold(
       appBar: AppBar(title: const Text('Escáner GASTROORIGEN')),
       body: SafeArea(
@@ -21,10 +23,14 @@ class _ScannerScreenState extends State<ScannerScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              const Text(
+              Text(
                 '¿Qué quieres identificar?',
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.w800),
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.w800,
+                  color: colors.primary,
+                ),
               ),
               const SizedBox(height: 14),
               Wrap(
@@ -34,6 +40,20 @@ class _ScannerScreenState extends State<ScannerScreen> {
                     .map((item) => ChoiceChip(
                           label: Text(item),
                           selected: mode == item,
+                          selectedColor: const Color(0xFFF4E3B6),
+                          side: BorderSide(
+                            color: mode == item
+                                ? colors.tertiary
+                                : const Color(0xFFD9B86A),
+                          ),
+                          labelStyle: TextStyle(
+                            color: mode == item
+                                ? colors.primary
+                                : const Color(0xFF69685F),
+                            fontWeight: mode == item
+                                ? FontWeight.w700
+                                : FontWeight.w500,
+                          ),
                           onSelected: (_) => setState(() => mode = item),
                         ))
                     .toList(),
@@ -42,19 +62,23 @@ class _ScannerScreenState extends State<ScannerScreen> {
               Expanded(
                 child: Container(
                   decoration: BoxDecoration(
-                    color: const Color(0xFF241F1B),
+                    color: const Color(0xFF063B2D),
                     borderRadius: BorderRadius.circular(28),
+                    border: Border.all(color: const Color(0xFFD59A1C), width: 1.5),
                   ),
                   child: Stack(
                     alignment: Alignment.center,
                     children: [
-                      const Icon(Icons.camera_alt_outlined,
-                          size: 86, color: Colors.white54),
+                      const Icon(
+                        Icons.camera_alt_outlined,
+                        size: 86,
+                        color: Color(0x99FFFFFF),
+                      ),
                       Container(
                         width: 230,
                         height: 230,
                         decoration: BoxDecoration(
-                          border: Border.all(color: Colors.white, width: 2),
+                          border: Border.all(color: const Color(0xFFF1C15B), width: 2),
                           borderRadius: BorderRadius.circular(28),
                         ),
                       ),
@@ -86,12 +110,19 @@ class _ScannerScreenState extends State<ScannerScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text('Posible identificación',
-                            style: TextStyle(fontSize: 13)),
+                        const Text(
+                          'Posible identificación',
+                          style: TextStyle(fontSize: 13, color: Color(0xFF69685F)),
+                        ),
                         const SizedBox(height: 4),
-                        const Text('Chile poblano',
-                            style: TextStyle(
-                                fontSize: 22, fontWeight: FontWeight.w800)),
+                        Text(
+                          'Chile poblano',
+                          style: TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.w800,
+                            color: colors.primary,
+                          ),
+                        ),
                         const SizedBox(height: 4),
                         const Text('Coincidencia de demostración: 94%'),
                         const SizedBox(height: 10),
