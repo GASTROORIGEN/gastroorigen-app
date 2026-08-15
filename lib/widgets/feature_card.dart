@@ -16,6 +16,8 @@ class FeatureCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
+
     return Card(
       elevation: 0,
       clipBehavior: Clip.antiAlias,
@@ -27,7 +29,8 @@ class FeatureCard extends StatelessWidget {
             children: [
               CircleAvatar(
                 radius: 25,
-                child: Icon(icon),
+                backgroundColor: const Color(0xFFF4E3B6),
+                child: Icon(icon, color: colors.primary),
               ),
               const SizedBox(width: 14),
               Expanded(
@@ -36,17 +39,28 @@ class FeatureCard extends StatelessWidget {
                   children: [
                     Text(
                       title,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w800,
+                        color: colors.primary,
                       ),
                     ),
                     const SizedBox(height: 4),
-                    Text(subtitle, style: const TextStyle(height: 1.35)),
+                    const Text(
+                      '',
+                      style: TextStyle(height: 0),
+                    ),
+                    Text(
+                      subtitle,
+                      style: const TextStyle(
+                        height: 1.35,
+                        color: Color(0xFF69685F),
+                      ),
+                    ),
                   ],
                 ),
               ),
-              const Icon(Icons.chevron_right_rounded),
+              Icon(Icons.chevron_right_rounded, color: colors.secondary),
             ],
           ),
         ),
