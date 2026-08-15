@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - 'preview/**'
+      - 'assets/branding/splash_base64.txt'
       - '.github/workflows/pages.yml'
   workflow_dispatch:
 
@@ -26,12 +27,25 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
+
+      - name: Reconstruir portada GASTROORIGEN
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p preview/assets
+          tr -d '\r\n ' < assets/branding/splash_base64.txt | base64 --decode > preview/assets/splash.webp
+          BYTES=$(stat -c%s preview/assets/splash.webp)
+          echo "Portada reconstruida: ${BYTES} bytes"
+          test "${BYTES}" -gt 10000
+
       - name: Configurar Pages
         uses: actions/configure-pages@v5
+
       - name: Subir sitio
         uses: actions/upload-pages-artifact@v4
         with:
           path: preview
+
       - name: Publicar
         id: deployment
         uses: actions/deploy-pages@v4
