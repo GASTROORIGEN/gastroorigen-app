@@ -2,96 +2,105 @@
 <html lang="es">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="gastroorigen-preview" content="paleta-logo-v1-2026-08-14" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#00452f" />
+  <meta name="gastroorigen-preview" content="paso-3a-camara-preview" />
   <title>GASTROORIGEN</title>
   <style>
     :root{
-      --bg:#fbf4e7;
-      --card:#fffdf8;
-      --forest:#00452f;
-      --forest-2:#006044;
-      --chile:#a62c18;
-      --gold:#d59a1c;
-      --maize:#f1c15b;
-      --soft:#f4e3b6;
-      --line:#d9b86a;
-      --text:#17251f;
-      --muted:#69685f;
+      --bg:#fbf4e7;--card:#fffdf8;--forest:#00452f;--forest2:#006044;
+      --chile:#a62c18;--gold:#d59a1c;--maize:#f1c15b;--soft:#f4e3b6;
+      --line:#d9b86a;--text:#17251f;--muted:#69685f;--danger:#9b2817;
     }
-    *{box-sizing:border-box}
+    *{box-sizing:border-box} html{min-height:100%}
     body{margin:0;background:linear-gradient(180deg,#fbf4e7 0%,#f7ead0 100%);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;min-height:100vh}
-    .wrap{max-width:520px;margin:auto;padding:20px 20px 40px}
+    button{font:inherit}.wrap{max-width:520px;margin:auto;padding:20px 20px 40px}.screen{display:none}.screen.active{display:block}
     .brand{background:#fffaf0;border:1.5px solid var(--line);border-radius:24px;padding:14px 18px;display:flex;align-items:center;justify-content:center;overflow:hidden;box-shadow:0 8px 22px rgba(0,69,47,.07)}
-    #brand-logo{display:block;width:min(100%,400px);height:auto;object-fit:contain;object-position:center;margin:0 auto;opacity:0;transition:opacity .15s ease}
-    #brand-logo.ready{opacity:1}
-    .logo-status{text-align:center;font-size:12px;color:var(--forest);opacity:.7;padding:28px 0}
-    h2{text-align:center;margin:30px 0 10px;font-size:25px;color:var(--forest)}
-    .lead{text-align:center;line-height:1.5;margin:0 0 26px;color:var(--muted)}
-    .btn{width:100%;border-radius:18px;padding:17px 16px;font-weight:800;font-size:14px;cursor:pointer;transition:transform .15s ease,box-shadow .15s ease,background .15s ease}
-    .btn:active{transform:scale(.985)}
-    .primary{border:1px solid var(--forest);background:var(--forest);color:#fff;box-shadow:0 6px 16px rgba(0,69,47,.18)}
-    .primary:hover{background:var(--forest-2)}
-    .secondary{margin-top:12px;background:#fffaf0;border:1.5px solid var(--chile);color:var(--chile)}
-    .secondary:hover{background:#fff2e8}
-    .section{font-weight:850;font-size:18px;margin:34px 0 14px;color:var(--chile)}
-    .card{display:flex;gap:14px;align-items:center;background:var(--card);border-radius:18px;padding:16px;margin-top:12px;border:1px solid #ead8a8;box-shadow:0 4px 12px rgba(0,69,47,.06)}
-    .card:hover{border-color:var(--line);box-shadow:0 6px 16px rgba(0,69,47,.09)}
-    .icon{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:var(--soft);font-size:23px;border:1px solid #e9c96f}
-    .copy{flex:1}.title{font-weight:800;color:var(--forest)}.sub{font-size:14px;line-height:1.4;margin-top:4px;color:var(--muted)}.arrow{font-size:24px;color:var(--chile);font-weight:700}
-    .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--forest);color:white;padding:10px 14px;border-radius:999px;opacity:0;pointer-events:none;transition:.2s;box-shadow:0 6px 16px rgba(0,0,0,.18)}.toast.show{opacity:1}
-    @media(max-width:430px){.wrap{padding:14px 14px 32px}.brand{padding:12px 14px}#brand-logo{width:min(100%,360px)}h2{font-size:23px}}
+    #brand-logo{display:block;width:min(100%,400px);height:auto;object-fit:contain;object-position:center;margin:0 auto;opacity:0;transition:opacity .15s ease}#brand-logo.ready{opacity:1}.logo-status{text-align:center;font-size:12px;color:var(--forest);opacity:.7;padding:28px 0}
+    h1,h2,h3{color:var(--forest)}h2{text-align:center;margin:30px 0 10px;font-size:25px}.lead{text-align:center;line-height:1.5;margin:0 0 26px;color:var(--muted)}
+    .btn{width:100%;border-radius:18px;padding:17px 16px;font-weight:800;font-size:14px;cursor:pointer;transition:transform .15s ease,box-shadow .15s ease,background .15s ease}.btn:active{transform:scale(.985)}
+    .primary{border:1px solid var(--forest);background:var(--forest);color:#fff;box-shadow:0 6px 16px rgba(0,69,47,.18)}.primary:hover{background:var(--forest2)}
+    .secondary{margin-top:12px;background:#fffaf0;border:1.5px solid var(--chile);color:var(--chile)}.gold{background:var(--gold);border:1px solid #bc8310;color:#2c2415}.ghost{background:transparent;border:1px solid var(--line);color:var(--forest)}
+    .section{font-weight:800;font-size:18px;margin:34px 0 14px;color:var(--chile)}.card{display:flex;gap:14px;align-items:center;background:var(--card);border-radius:18px;padding:16px;margin-top:12px;border:1px solid #e5cf98;box-shadow:0 5px 16px rgba(0,69,47,.06);cursor:pointer}.icon{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:var(--soft);font-size:23px;border:1px solid #e3c77f}.copy{flex:1}.title{font-weight:800;color:var(--forest)}.sub{font-size:14px;line-height:1.4;margin-top:4px;color:var(--muted)}.arrow{font-size:24px;color:var(--chile);opacity:.8}
+    .topbar{display:flex;align-items:center;gap:12px;margin:2px 0 18px}.back{width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:#fffaf0;color:var(--forest);font-size:22px;cursor:pointer}.top-title{font-size:19px;font-weight:850;color:var(--forest)}
+    .scanner-card{background:#fffaf0;border:1px solid var(--line);border-radius:24px;padding:18px;box-shadow:0 8px 22px rgba(0,69,47,.07)}
+    .question{text-align:center;font-size:21px;font-weight:850;color:var(--forest);margin:2px 0 14px}.chips{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:18px}.chip{border:1px solid var(--line);background:#fffdf8;color:var(--muted);border-radius:999px;padding:9px 12px;font-weight:700;cursor:pointer}.chip.active{background:var(--soft);border-color:var(--gold);color:var(--forest)}
+    .capture-box{position:relative;min-height:320px;border-radius:24px;overflow:hidden;background:linear-gradient(145deg,#063b2d,#002e20);border:1.5px solid var(--gold);display:grid;place-items:center}.capture-empty{text-align:center;color:#fff;padding:28px}.camera-icon{font-size:70px;opacity:.8}.frame{width:205px;height:205px;border:2px solid var(--maize);border-radius:26px;margin:8px auto 16px}.hint{font-size:14px;line-height:1.45;opacity:.92}
+    #photoPreview{display:none;width:100%;height:360px;object-fit:contain;background:#062f25}.photo-overlay{display:none;position:absolute;inset:auto 12px 12px 12px;background:rgba(0,45,32,.82);color:#fff;padding:10px 12px;border-radius:14px;font-size:12px}.capture-box.has-photo .capture-empty{display:none}.capture-box.has-photo #photoPreview,.capture-box.has-photo .photo-overlay{display:block}
+    .source-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}.source-btn{border-radius:16px;padding:13px 10px;font-weight:800;cursor:pointer}.source-camera{background:var(--forest);border:1px solid var(--forest);color:#fff}.source-gallery{background:#fffdf8;border:1.5px solid var(--chile);color:var(--chile)}
+    .file-info{display:none;margin-top:12px;background:#f9efcf;border:1px solid #e6c96f;border-radius:14px;padding:11px 12px;color:var(--forest);font-size:13px;line-height:1.4}.file-info.show{display:block}.analyze{display:none;margin-top:12px}.analyze.show{display:block}.replace{display:none;margin-top:10px}.replace.show{display:block}
+    .notice{display:none;margin-top:12px;border-radius:16px;padding:13px 14px;background:#edf6ef;border:1px solid #9bc0a7;color:var(--forest);font-size:13px;line-height:1.45}.notice.show{display:block}
+    .privacy{margin:13px 2px 0;color:var(--muted);font-size:12px;line-height:1.45;text-align:center}.hidden-input{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+    .toast{position:fixed;z-index:20;left:50%;bottom:24px;transform:translateX(-50%);background:var(--forest);color:white;padding:10px 14px;border:1px solid var(--gold);border-radius:999px;opacity:0;pointer-events:none;transition:.2s;white-space:nowrap;max-width:90vw;overflow:hidden;text-overflow:ellipsis}.toast.show{opacity:1}
+    @media(max-width:430px){.wrap{padding:14px 14px 32px}.brand{padding:12px 14px}#brand-logo{width:min(100%,360px)}h2{font-size:23px}.capture-box{min-height:300px}#photoPreview{height:330px}.source-actions{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
   <main class="wrap">
-    <section class="brand">
-      <img id="brand-logo" alt="GASTROORIGEN — México se cuenta a través de sus sabores." />
-      <span id="logo-status" class="logo-status">Cargando GASTROORIGEN…</span>
+    <section id="homeScreen" class="screen active">
+      <section class="brand"><img id="brand-logo" alt="GASTROORIGEN — México se cuenta a través de sus sabores." /><span id="logo-status" class="logo-status">Cargando GASTROORIGEN…</span></section>
+      <h2>¿Qué quieres descubrir hoy?</h2>
+      <p class="lead">Escanea un ingrediente o platillo y descubre su origen, historia y usos gastronómicos.</p>
+      <button id="homeCamera" class="btn primary">📷 ESCANEAR INGREDIENTE O PLATILLO</button>
+      <button id="homeGallery" class="btn secondary">🖼️ SUBIR UNA FOTOGRAFÍA</button>
+      <div class="section">Explora GASTROORIGEN</div>
+      <div class="card" data-coming="Explorar"><div class="icon">🔎</div><div class="copy"><div class="title">Explorar</div><div class="sub">Busca ingredientes, platillos y sabores de México.</div></div><div class="arrow">›</div></div>
+      <div class="card" data-coming="Historias"><div class="icon">📖</div><div class="copy"><div class="title">Historias</div><div class="sub">Conoce el origen cultural detrás de cada sabor.</div></div><div class="arrow">›</div></div>
+      <div class="card" data-coming="Mi GASTROORIGEN"><div class="icon">👤</div><div class="copy"><div class="title">Mi GASTROORIGEN</div><div class="sub">Tus descubrimientos, favoritos e historial.</div></div><div class="arrow">›</div></div>
     </section>
-    <h2>¿Qué quieres descubrir hoy?</h2>
-    <p class="lead">Escanea un ingrediente o platillo y descubre su origen, historia y usos gastronómicos.</p>
-    <button class="btn primary" data-feature="El escáner">📷 ESCANEAR INGREDIENTE O PLATILLO</button>
-    <button class="btn secondary" data-feature="Galería">🖼️ SUBIR UNA FOTOGRAFÍA</button>
-    <div class="section">Explora GASTROORIGEN</div>
-    <div class="card" data-feature="Explorar"><div class="icon">🔎</div><div class="copy"><div class="title">Explorar</div><div class="sub">Busca ingredientes, platillos y sabores de México.</div></div><div class="arrow">›</div></div>
-    <div class="card" data-feature="Historias"><div class="icon">📖</div><div class="copy"><div class="title">Historias</div><div class="sub">Conoce el origen cultural detrás de cada sabor.</div></div><div class="arrow">›</div></div>
-    <div class="card" data-feature="Mi GASTROORIGEN"><div class="icon">👤</div><div class="copy"><div class="title">Mi GASTROORIGEN</div><div class="sub">Tus descubrimientos, favoritos e historial.</div></div><div class="arrow">›</div></div>
+
+    <section id="scannerScreen" class="screen">
+      <div class="topbar"><button id="backHome" class="back" aria-label="Regresar">‹</button><div class="top-title">Escáner GASTROORIGEN</div></div>
+      <div class="scanner-card">
+        <div class="question">¿Qué quieres identificar?</div>
+        <div class="chips">
+          <button class="chip active" data-mode="Ingrediente">Ingrediente</button>
+          <button class="chip" data-mode="Platillo">Platillo</button>
+          <button class="chip" data-mode="No estoy seguro">No estoy seguro</button>
+        </div>
+        <div id="captureBox" class="capture-box">
+          <div class="capture-empty"><div class="camera-icon">📷</div><div class="frame"></div><div class="hint">Toma una foto clara o elige una imagen de tu galería.</div></div>
+          <img id="photoPreview" alt="Previsualización de la imagen seleccionada" />
+          <div id="photoOverlay" class="photo-overlay"></div>
+        </div>
+        <div class="source-actions">
+          <button id="cameraButton" class="source-btn source-camera">📷 TOMAR FOTO</button>
+          <button id="galleryButton" class="source-btn source-gallery">🖼️ ELEGIR DE GALERÍA</button>
+        </div>
+        <input id="cameraInput" class="hidden-input" type="file" accept="image/*" capture="environment" />
+        <input id="galleryInput" class="hidden-input" type="file" accept="image/*" />
+        <div id="fileInfo" class="file-info"></div>
+        <button id="analyzeButton" class="btn gold analyze">✨ ANALIZAR CON GASTROORIGEN</button>
+        <button id="replaceButton" class="btn ghost replace">Cambiar fotografía</button>
+        <div id="analysisNotice" class="notice"><strong>Imagen lista.</strong> La captura y previsualización ya funcionan. El siguiente paso conectará este botón con OpenAI para identificar el ingrediente o platillo y generar su ficha gastronómica.</div>
+        <div class="privacy">La fotografía todavía no se envía a ningún servicio externo en este Paso 3A.</div>
+      </div>
+    </section>
   </main>
   <div id="toast" class="toast"></div>
   <script>
-    const VERSION='20260814-1909-paleta-logo';
-    const logo=document.getElementById('brand-logo');
-    const logoStatus=document.getElementById('logo-status');
-    (async()=>{
-      try{
-        const paths=[
-          'logo_v5/part01.txt',
-          'logo_v5/part02.txt',
-          'logo_v4/part02.txt',
-          'logo_v5/part05.txt',
-          'logo_v5/part06.txt',
-          'logo_v4/part04.txt'
-        ];
-        const parts=await Promise.all(paths.map(async path=>{
-          const response=await fetch(path+'?v='+VERSION,{cache:'no-store'});
-          if(!response.ok) throw new Error('No se pudo cargar '+path);
-          return (await response.text()).trim();
-        }));
-        logo.onload=()=>{logo.classList.add('ready');logoStatus.remove();};
-        logo.onerror=()=>{logoStatus.textContent='No se pudo cargar el logo.';};
-        logo.src='data:image/webp;base64,'+parts.join('');
-      }catch(error){
-        console.error(error);
-        logoStatus.textContent='No se pudo cargar el logo.';
-      }
-    })();
-    const toast=document.getElementById('toast');
-    document.querySelectorAll('[data-feature]').forEach(el=>el.addEventListener('click',()=>{
-      toast.textContent=el.dataset.feature+' se conectará en el siguiente paso.';
-      toast.classList.add('show');
-      setTimeout(()=>toast.classList.remove('show'),1800);
-    }));
+    const VERSION='20260814-1934-step3a';
+    const logo=document.getElementById('brand-logo'); const logoStatus=document.getElementById('logo-status');
+    (async()=>{try{const paths=['logo_v5/part01.txt','logo_v5/part02.txt','logo_v4/part02.txt','logo_v5/part05.txt','logo_v5/part06.txt','logo_v4/part04.txt'];const parts=await Promise.all(paths.map(async path=>{const r=await fetch(path+'?v='+VERSION,{cache:'no-store'});if(!r.ok)throw new Error(path);return(await r.text()).trim()}));logo.onload=()=>{logo.classList.add('ready');logoStatus.remove()};logo.onerror=()=>logoStatus.textContent='No se pudo cargar el logo.';logo.src='data:image/webp;base64,'+parts.join('')}catch(e){console.error(e);logoStatus.textContent='No se pudo cargar el logo.'}})();
+
+    const home=document.getElementById('homeScreen'), scanner=document.getElementById('scannerScreen');
+    const cameraInput=document.getElementById('cameraInput'), galleryInput=document.getElementById('galleryInput');
+    const captureBox=document.getElementById('captureBox'), preview=document.getElementById('photoPreview'), overlay=document.getElementById('photoOverlay');
+    const fileInfo=document.getElementById('fileInfo'), analyze=document.getElementById('analyzeButton'), replace=document.getElementById('replaceButton'), notice=document.getElementById('analysisNotice');
+    let currentUrl=null, currentMode='Ingrediente';
+    function showScanner(){home.classList.remove('active');scanner.classList.add('active');window.scrollTo({top:0,behavior:'auto'})}
+    function showHome(){scanner.classList.remove('active');home.classList.add('active');window.scrollTo({top:0,behavior:'auto'})}
+    function resetPhoto(){if(currentUrl)URL.revokeObjectURL(currentUrl);currentUrl=null;preview.removeAttribute('src');captureBox.classList.remove('has-photo');fileInfo.classList.remove('show');analyze.classList.remove('show');replace.classList.remove('show');notice.classList.remove('show');cameraInput.value='';galleryInput.value=''}
+    function choose(input){showScanner();setTimeout(()=>input.click(),0)}
+    document.getElementById('homeCamera').onclick=()=>choose(cameraInput);document.getElementById('homeGallery').onclick=()=>choose(galleryInput);
+    document.getElementById('cameraButton').onclick=()=>cameraInput.click();document.getElementById('galleryButton').onclick=()=>galleryInput.click();document.getElementById('backHome').onclick=showHome;document.getElementById('replaceButton').onclick=resetPhoto;
+    document.querySelectorAll('.chip').forEach(chip=>chip.onclick=()=>{document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));chip.classList.add('active');currentMode=chip.dataset.mode;if(captureBox.classList.contains('has-photo'))overlay.textContent=currentMode+' · fotografía lista para analizar'});
+    function handleFile(file){if(!file)return;if(!file.type.startsWith('image/')){showToast('Selecciona una imagen válida.');return}if(currentUrl)URL.revokeObjectURL(currentUrl);currentUrl=URL.createObjectURL(file);preview.src=currentUrl;captureBox.classList.add('has-photo');overlay.textContent=currentMode+' · fotografía lista para analizar';const mb=(file.size/1024/1024).toFixed(file.size>1048576?1:2);fileInfo.innerHTML='<strong>Fotografía seleccionada</strong><br>'+escapeHtml(file.name)+' · '+mb+' MB';fileInfo.classList.add('show');analyze.classList.add('show');replace.classList.add('show');notice.classList.remove('show')}
+    cameraInput.onchange=e=>handleFile(e.target.files[0]);galleryInput.onchange=e=>handleFile(e.target.files[0]);
+    analyze.onclick=()=>{notice.classList.add('show');notice.scrollIntoView({behavior:'smooth',block:'nearest'})};
+    document.querySelectorAll('[data-coming]').forEach(el=>el.onclick=()=>showToast(el.dataset.coming+' se conectará después del escáner.'));
+    const toast=document.getElementById('toast');function showToast(t){toast.textContent=t;toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),1900)}
+    function escapeHtml(v){return v.replace(/[&<>'\"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','\"':'&quot;'}[c]))}
   </script>
 </body>
 </html>
