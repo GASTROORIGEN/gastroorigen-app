@@ -96,7 +96,7 @@ class _ScannerScreenState extends State<ScannerScreen> {
       final data = jsonDecode(response.body) as Map<String, dynamic>;
       if (response.statusCode < 200 || response.statusCode >= 300) {
         throw Exception(
-          data['detail'] ?? data['error'] ?? 'Gemini no pudo analizar la fotografía.',
+          data['detail'] ?? data['error'] ?? 'La IA GASTROORIGEN no pudo analizar la fotografía.',
         );
       }
 
@@ -227,7 +227,7 @@ class _ScannerScreenState extends State<ScannerScreen> {
                     borderRadius: BorderRadius.circular(999),
                   ),
                   child: const Text(
-                    '✨ Gemini 2.5 Flash + Google',
+                    '✨ IA GASTROORIGEN',
                     style: TextStyle(
                       color: Color(0xFF00452F),
                       fontSize: 12,
@@ -296,7 +296,7 @@ class _ScannerScreenState extends State<ScannerScreen> {
                               ),
                               child: Text(
                                 _analyzing
-                                    ? 'Gemini está analizando…'
+                                    ? 'IA GASTROORIGEN está analizando…'
                                     : r != null
                                         ? '${r['name'] ?? 'Resultado'} · ${r['confidence'] ?? 0}%'
                                         : 'Fotografía lista',
@@ -339,7 +339,7 @@ class _ScannerScreenState extends State<ScannerScreen> {
                 const LinearProgressIndicator(),
                 const SizedBox(height: 8),
                 const Text(
-                  'Gemini + Google están identificando la fotografía y construyendo la ficha…',
+                  'La IA GASTROORIGEN está identificando la fotografía y construyendo la ficha…',
                   textAlign: TextAlign.center,
                 ),
               ],
@@ -364,7 +364,7 @@ class _ScannerScreenState extends State<ScannerScreen> {
                   ),
                   onPressed: _analyzing ? null : _analyze,
                   icon: const Icon(Icons.refresh_rounded),
-                  label: const Text('REINTENTAR CON GEMINI'),
+                  label: const Text('REINTENTAR ANÁLISIS'),
                 ),
               ],
               if (r != null) ...[
@@ -454,7 +454,7 @@ class _ScannerScreenState extends State<ScannerScreen> {
                         const SizedBox(height: 16),
                         const Divider(),
                         const Text(
-                          'Fuentes encontradas con Google',
+                          'Fuentes consultadas',
                           style: TextStyle(
                             color: Color(0xFF00452F),
                             fontWeight: FontWeight.w800,
@@ -486,7 +486,7 @@ class _ScannerScreenState extends State<ScannerScreen> {
               ],
               const SizedBox(height: 10),
               const Text(
-                'La fotografía se envía al backend seguro de GASTROORIGEN y de ahí a Gemini. En el nivel gratuito de Gemini, Google indica que el contenido puede usarse para mejorar sus productos.',
+                'La fotografía se procesa mediante la IA GASTROORIGEN. El proveedor de inteligencia artificial se configura de forma segura en el servidor y no se expone dentro de la aplicación.',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Color(0xFF69685F),
