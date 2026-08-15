@@ -26,8 +26,8 @@
     .scanner-card{background:#fffaf0;border:1px solid var(--line);border-radius:24px;padding:18px;box-shadow:0 8px 22px rgba(0,69,47,.07)}
     .question{text-align:center;font-size:21px;font-weight:850;color:var(--forest);margin:2px 0 14px}.chips{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:18px}.chip{border:1px solid var(--line);background:#fffdf8;color:var(--muted);border-radius:999px;padding:9px 12px;font-weight:700;cursor:pointer}.chip.active{background:var(--soft);border-color:var(--gold);color:var(--forest)}
     .capture-box{position:relative;min-height:320px;border-radius:24px;overflow:hidden;background:linear-gradient(145deg,#063b2d,#002e20);border:1.5px solid var(--gold);display:grid;place-items:center}.capture-empty{text-align:center;color:#fff;padding:28px}.camera-icon{font-size:70px;opacity:.8}.frame{width:205px;height:205px;border:2px solid var(--maize);border-radius:26px;margin:8px auto 16px}.hint{font-size:14px;line-height:1.45;opacity:.92}
-    #photoPreview{display:none;width:100%;height:360px;object-fit:contain;background:#062f25}.photo-overlay{display:none;position:absolute;inset:auto 12px 12px 12px;background:rgba(0,45,32,.82);color:#fff;padding:10px 12px;border-radius:14px;font-size:12px}.capture-box.has-photo .capture-empty{display:none}.capture-box.has-photo #photoPreview,.capture-box.has-photo .photo-overlay{display:block}
-    .source-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}.source-btn{border-radius:16px;padding:13px 10px;font-weight:800;cursor:pointer}.source-camera{background:var(--forest);border:1px solid var(--forest);color:#fff}.source-gallery{background:#fffdf8;border:1.5px solid var(--chile);color:var(--chile)}
+    #cameraVideo{display:none;width:100%;height:360px;object-fit:cover;background:#062f25}#photoPreview{display:none;width:100%;height:360px;object-fit:contain;background:#062f25}.capture-box.camera-live .capture-empty{display:none}.capture-box.camera-live #cameraVideo{display:block}.capture-box.has-photo #cameraVideo{display:none}.photo-overlay{display:none;position:absolute;inset:auto 12px 12px 12px;background:rgba(0,45,32,.82);color:#fff;padding:10px 12px;border-radius:14px;font-size:12px}.capture-box.has-photo .capture-empty{display:none}.capture-box.has-photo #photoPreview,.capture-box.has-photo .photo-overlay{display:block}
+    .source-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}.capture-live{display:none;margin-top:10px}.capture-live.show{display:block}.source-btn{border-radius:16px;padding:13px 10px;font-weight:800;cursor:pointer}.source-camera{background:var(--forest);border:1px solid var(--forest);color:#fff}.source-gallery{background:#fffdf8;border:1.5px solid var(--chile);color:var(--chile)}
     .file-info{display:none;margin-top:12px;background:#f9efcf;border:1px solid #e6c96f;border-radius:14px;padding:11px 12px;color:var(--forest);font-size:13px;line-height:1.4}.file-info.show{display:block}.analyze{display:none;margin-top:12px}.analyze.show{display:block}.replace{display:none;margin-top:10px}.replace.show{display:block}
     .notice{display:none;margin-top:12px;border-radius:16px;padding:13px 14px;background:#edf6ef;border:1px solid #9bc0a7;color:var(--forest);font-size:13px;line-height:1.45}.notice.show{display:block}
     .privacy{margin:13px 2px 0;color:var(--muted);font-size:12px;line-height:1.45;text-align:center}.hidden-input{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
@@ -60,13 +60,16 @@
         </div>
         <div id="captureBox" class="capture-box">
           <div class="capture-empty"><div class="camera-icon">📷</div><div class="frame"></div><div class="hint">Toma una foto clara o elige una imagen de tu galería.</div></div>
+          <video id="cameraVideo" autoplay playsinline muted></video>
           <img id="photoPreview" alt="Previsualización de la imagen seleccionada" />
           <div id="photoOverlay" class="photo-overlay"></div>
         </div>
         <div class="source-actions">
-          <button id="cameraButton" class="source-btn source-camera">📷 TOMAR FOTO</button>
+          <button id="cameraButton" class="source-btn source-camera">📷 ABRIR CÁMARA</button>
           <button id="galleryButton" class="source-btn source-gallery">🖼️ ELEGIR DE GALERÍA</button>
         </div>
+        <button id="captureLiveButton" class="btn gold capture-live">📸 CAPTURAR FOTO</button>
+        <canvas id="captureCanvas" hidden></canvas>
         <input id="cameraInput" class="hidden-input" type="file" accept="image/*" capture="environment" />
         <input id="galleryInput" class="hidden-input" type="file" accept="image/*" />
         <div id="fileInfo" class="file-info"></div>
@@ -86,16 +89,27 @@
     const home=document.getElementById('homeScreen'), scanner=document.getElementById('scannerScreen');
     const cameraInput=document.getElementById('cameraInput'), galleryInput=document.getElementById('galleryInput');
     const captureBox=document.getElementById('captureBox'), preview=document.getElementById('photoPreview'), overlay=document.getElementById('photoOverlay');
+    const cameraVideo=document.getElementById('cameraVideo'), captureCanvas=document.getElementById('captureCanvas'), captureLive=document.getElementById('captureLiveButton');
     const fileInfo=document.getElementById('fileInfo'), analyze=document.getElementById('analyzeButton'), replace=document.getElementById('replaceButton'), notice=document.getElementById('analysisNotice');
-    let currentUrl=null, currentMode='Ingrediente';
+    let currentUrl=null, currentMode='Ingrediente', cameraStream=null;
     function showScanner(){home.classList.remove('active');scanner.classList.add('active');window.scrollTo({top:0,behavior:'auto'})}
-    function showHome(){scanner.classList.remove('active');home.classList.add('active');window.scrollTo({top:0,behavior:'auto'})}
-    function resetPhoto(){if(currentUrl)URL.revokeObjectURL(currentUrl);currentUrl=null;preview.removeAttribute('src');captureBox.classList.remove('has-photo');fileInfo.classList.remove('show');analyze.classList.remove('show');replace.classList.remove('show');notice.classList.remove('show');cameraInput.value='';galleryInput.value=''}
-    function choose(input){showScanner();setTimeout(()=>input.click(),0)}
-    document.getElementById('homeCamera').onclick=()=>choose(cameraInput);document.getElementById('homeGallery').onclick=()=>choose(galleryInput);
-    document.getElementById('cameraButton').onclick=()=>cameraInput.click();document.getElementById('galleryButton').onclick=()=>galleryInput.click();document.getElementById('backHome').onclick=showHome;document.getElementById('replaceButton').onclick=resetPhoto;
+    function showHome(){stopCamera();scanner.classList.remove('active');home.classList.add('active');window.scrollTo({top:0,behavior:'auto'})}
+    function resetPhoto(){stopCamera();if(currentUrl)URL.revokeObjectURL(currentUrl);currentUrl=null;preview.removeAttribute('src');captureBox.classList.remove('has-photo');fileInfo.classList.remove('show');analyze.classList.remove('show');replace.classList.remove('show');notice.classList.remove('show');cameraInput.value='';galleryInput.value=''}
+    async function startCamera(){
+      showScanner(); resetPhoto();
+      try{
+        if(!navigator.mediaDevices?.getUserMedia) throw new Error('camera unavailable');
+        cameraStream=await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'}},audio:false});
+        cameraVideo.srcObject=cameraStream;captureBox.classList.add('camera-live');captureLive.classList.add('show');
+      }catch(e){console.warn(e);showToast('No se pudo abrir la cámara; selecciona una fotografía.');setTimeout(()=>cameraInput.click(),100)}
+    }
+    function stopCamera(){if(cameraStream){cameraStream.getTracks().forEach(t=>t.stop());cameraStream=null}cameraVideo.srcObject=null;captureBox.classList.remove('camera-live');captureLive.classList.remove('show')}
+    function chooseGallery(){showScanner();setTimeout(()=>galleryInput.click(),0)}
+    document.getElementById('homeCamera').onclick=startCamera;document.getElementById('homeGallery').onclick=chooseGallery;
+    document.getElementById('cameraButton').onclick=startCamera;document.getElementById('galleryButton').onclick=()=>galleryInput.click();document.getElementById('backHome').onclick=showHome;document.getElementById('replaceButton').onclick=resetPhoto;
     document.querySelectorAll('.chip').forEach(chip=>chip.onclick=()=>{document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));chip.classList.add('active');currentMode=chip.dataset.mode;if(captureBox.classList.contains('has-photo'))overlay.textContent=currentMode+' · fotografía lista para analizar'});
-    function handleFile(file){if(!file)return;if(!file.type.startsWith('image/')){showToast('Selecciona una imagen válida.');return}if(currentUrl)URL.revokeObjectURL(currentUrl);currentUrl=URL.createObjectURL(file);preview.src=currentUrl;captureBox.classList.add('has-photo');overlay.textContent=currentMode+' · fotografía lista para analizar';const mb=(file.size/1024/1024).toFixed(file.size>1048576?1:2);fileInfo.innerHTML='<strong>Fotografía seleccionada</strong><br>'+escapeHtml(file.name)+' · '+mb+' MB';fileInfo.classList.add('show');analyze.classList.add('show');replace.classList.add('show');notice.classList.remove('show')}
+    function handleFile(file){if(!file)return;stopCamera();if(!file.type.startsWith('image/')){showToast('Selecciona una imagen válida.');return}if(currentUrl)URL.revokeObjectURL(currentUrl);currentUrl=URL.createObjectURL(file);preview.src=currentUrl;captureBox.classList.add('has-photo');overlay.textContent=currentMode+' · fotografía lista para analizar';const mb=(file.size/1024/1024).toFixed(file.size>1048576?1:2);fileInfo.innerHTML='<strong>Fotografía seleccionada</strong><br>'+escapeHtml(file.name)+' · '+mb+' MB';fileInfo.classList.add('show');analyze.classList.add('show');replace.classList.add('show');notice.classList.remove('show')}
+    captureLive.onclick=()=>{const w=cameraVideo.videoWidth,h=cameraVideo.videoHeight;if(!w||!h){showToast('La cámara todavía está iniciando.');return}captureCanvas.width=w;captureCanvas.height=h;captureCanvas.getContext('2d').drawImage(cameraVideo,0,0,w,h);captureCanvas.toBlob(blob=>{if(!blob)return;handleFile(new File([blob],'gastroorigen-captura.jpg',{type:'image/jpeg'}))},'image/jpeg',.92)};
     cameraInput.onchange=e=>handleFile(e.target.files[0]);galleryInput.onchange=e=>handleFile(e.target.files[0]);
     analyze.onclick=()=>{notice.classList.add('show');notice.scrollIntoView({behavior:'smooth',block:'nearest'})};
     document.querySelectorAll('[data-coming]').forEach(el=>el.onclick=()=>showToast(el.dataset.coming+' se conectará después del escáner.'));
