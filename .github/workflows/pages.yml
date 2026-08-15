@@ -5,7 +5,7 @@ on:
     branches: [main]
     paths:
       - 'preview/**'
-      - 'assets/branding/splash_base64.txt'
+      - 'assets/branding/splash_hq_part*.txt'
       - '.github/workflows/pages.yml'
   workflow_dispatch:
 
@@ -28,15 +28,18 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
-      - name: Reconstruir portada GASTROORIGEN
+      - name: Reconstruir portada HQ GASTROORIGEN
         shell: bash
         run: |
           set -euo pipefail
           mkdir -p preview/assets
-          tr -d '\r\n ' < assets/branding/splash_base64.txt | base64 --decode > preview/assets/splash.webp
+          cat assets/branding/splash_hq_part{01..13}.txt | tr -d '\r\n ' | base64 --decode > preview/assets/splash.webp
           BYTES=$(stat -c%s preview/assets/splash.webp)
-          echo "Portada reconstruida: ${BYTES} bytes"
-          test "${BYTES}" -gt 10000
+          echo "Portada HQ reconstruida: ${BYTES} bytes"
+          test "${BYTES}" -gt 60000
+          file preview/assets/splash.webp | tee /tmp/splash-file.txt
+          grep -qi 'Web/P image\|WebP' /tmp/splash-file.txt
+          sed -i 's/splash-portada-fix3/splash-hq-v2/g' preview/index.html
 
       - name: Configurar Pages
         uses: actions/configure-pages@v5
