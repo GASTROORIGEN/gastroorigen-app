@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'screens/home_screen.dart';
+
+import 'screens/splash_screen.dart';
 
 void main() {
   runApp(const GastroOrigenApp());
@@ -67,7 +68,7 @@ class GastroOrigenApp extends StatelessWidget {
           contentTextStyle: TextStyle(color: Colors.white),
         ),
       ),
-      home: const HomeScreen(),
+      home: const SplashScreen(),
     );
   }
 }

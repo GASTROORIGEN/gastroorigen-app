@@ -4,11 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#00452f">
-<meta name="gastroorigen-preview" content="institucional-premium-v1">
+<meta name="gastroorigen-preview" content="splash-portada-v1">
 <title>GASTROORIGEN</title>
 <style>
 :root{--bg:#fbf4e7;--card:#fffdf8;--forest:#00452f;--chile:#a62c18;--gold:#d59a1c;--soft:#f4e3b6;--line:#d9b86a;--text:#17251f;--muted:#69685f;--error:#842a18}
 *{box-sizing:border-box}body{margin:0;min-height:100vh;background:linear-gradient(180deg,#fbf4e7,#f7ead0);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif}button{font:inherit}.wrap{max-width:540px;margin:auto;padding:18px 18px 44px}.screen{display:none}.screen.active{display:block}
+body.splash-open{overflow:hidden}
+.splash{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;background:#0c2a18;opacity:1;visibility:visible;transition:opacity .45s ease,visibility .45s ease;padding:max(env(safe-area-inset-top),0px) max(env(safe-area-inset-right),0px) max(env(safe-area-inset-bottom),0px) max(env(safe-area-inset-left),0px);cursor:pointer}
+.splash.hide{opacity:0;visibility:hidden;pointer-events:none}
+.splash img{display:block;width:100%;height:100%;object-fit:contain;object-position:center;background:#0c2a18}
 .brand{display:flex;justify-content:center;background:#fffaf0;border:1.5px solid var(--line);border-radius:24px;padding:13px 17px;box-shadow:0 8px 22px rgba(0,69,47,.07)}#brand-logo{width:min(100%,400px);height:auto;opacity:0}#brand-logo.ready{opacity:1}.logo-status{padding:24px;color:var(--forest);font-size:12px}
 h2{text-align:center;color:var(--forest);font-size:25px;margin:28px 0 10px}.lead{text-align:center;color:var(--muted);line-height:1.5;margin:0 0 24px}.btn{width:100%;border-radius:18px;padding:16px 14px;font-weight:850;font-size:14px;cursor:pointer}.primary{background:var(--forest);border:1px solid var(--forest);color:#fff}.secondary{margin-top:11px;background:#fffaf0;border:1.5px solid var(--chile);color:var(--chile)}
 .about{margin-top:30px;background:linear-gradient(160deg,#fffdf8,#fff8e9);border:1px solid #e2c77e;border-radius:24px;padding:20px 18px;box-shadow:0 10px 26px rgba(0,69,47,.06)}.about-kicker{font-size:11px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:7px}.about h3{margin:0;color:var(--forest);font-size:22px}.about>p{margin:9px 0 17px;color:var(--muted);font-size:14px;line-height:1.55}.values{display:grid;gap:10px}.value{background:#fffaf0;border:1px solid #ead7a3;border-radius:17px;padding:14px}.value-title{display:flex;align-items:center;gap:8px;color:var(--chile);font-weight:900;font-size:14px}.value-dot{width:26px;height:26px;display:grid;place-items:center;border-radius:50%;background:var(--soft);color:var(--forest);font-size:13px}.value p{margin:6px 0 0;color:#55584f;font-size:13px;line-height:1.48}
@@ -22,7 +26,8 @@ h2{text-align:center;color:var(--forest);font-size:25px;margin:28px 0 10px}.lead
 @media(max-width:430px){.wrap{padding:13px 13px 34px}.source-actions,.result-grid{grid-template-columns:1fr}#photoPreview{height:330px}.result h3{font-size:27px}.about{padding:18px 15px}.about h3{font-size:20px}}
 </style>
 </head>
-<body>
+<body class="splash-open">
+<div id="appSplash" class="splash" role="presentation" aria-label="Portada GASTROORIGEN"><img src="assets/splash.webp?v=20260814-splash-portada-v1" alt="GASTROORIGEN — México se cuenta a través de sus sabores."></div>
 <main class="wrap">
 <section id="home" class="screen active">
   <section class="brand"><img id="brand-logo" alt="GASTROORIGEN"><span id="logo-status" class="logo-status">Cargando GASTROORIGEN…</span></section>
@@ -58,7 +63,13 @@ h2{text-align:center;color:var(--forest);font-size:25px;margin:28px 0 10px}.lead
 </section>
 </main>
 <script>
-const VERSION='20260814-institucional-premium-v1',API='https://gastroorigen-api.vercel.app/api/analyze';
+const VERSION='20260814-splash-portada-v1',API='https://gastroorigen-api.vercel.app/api/analyze';
+const appSplash=document.getElementById('appSplash');
+let splashClosed=false;
+function closeSplash(){if(splashClosed)return;splashClosed=true;appSplash.classList.add('hide');document.body.classList.remove('splash-open');setTimeout(()=>appSplash.remove(),500)}
+appSplash.addEventListener('click',closeSplash,{once:true});
+window.addEventListener('load',()=>setTimeout(closeSplash,2800),{once:true});
+setTimeout(closeSplash,5000);
 const logo=document.getElementById('brand-logo'),logoStatus=document.getElementById('logo-status');
 (async()=>{try{const paths=['logo_v5/part01.txt','logo_v5/part02.txt','logo_v4/part02.txt','logo_v5/part05.txt','logo_v5/part06.txt','logo_v4/part04.txt'];const parts=await Promise.all(paths.map(async p=>{const r=await fetch(p+'?v='+VERSION,{cache:'no-store'});if(!r.ok)throw new Error(p);return(await r.text()).trim()}));logo.onload=()=>{logo.classList.add('ready');logoStatus.remove()};logo.src='data:image/webp;base64,'+parts.join('')}catch(e){logoStatus.textContent='GASTROORIGEN'}})();
 const home=document.getElementById('home'),scanner=document.getElementById('scanner'),cameraInput=document.getElementById('cameraInput'),galleryInput=document.getElementById('galleryInput'),captureBox=document.getElementById('captureBox'),preview=document.getElementById('photoPreview'),overlay=document.getElementById('overlay'),statusBox=document.getElementById('status'),retry=document.getElementById('retry'),replace=document.getElementById('replace'),result=document.getElementById('result');
