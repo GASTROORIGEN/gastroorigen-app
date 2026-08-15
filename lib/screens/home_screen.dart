@@ -14,8 +14,65 @@ class HomeScreen extends StatelessWidget {
 
   void _openScanner(BuildContext context, ScannerEntry entry) {
     Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (_) => ScannerScreen(entry: entry),
+      MaterialPageRoute(builder: (_) => ScannerScreen(entry: entry)),
+    );
+  }
+
+  Widget _institutionalValue({
+    required String letter,
+    required String title,
+    required String text,
+  }) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: const Color(0xFFFFFAF0),
+        border: Border.all(color: const Color(0xFFEAD7A3)),
+        borderRadius: BorderRadius.circular(17),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Container(
+                width: 28,
+                height: 28,
+                alignment: Alignment.center,
+                decoration: const BoxDecoration(
+                  color: Color(0xFFF4E3B6),
+                  shape: BoxShape.circle,
+                ),
+                child: Text(
+                  letter,
+                  style: const TextStyle(
+                    color: Color(0xFF00452F),
+                    fontWeight: FontWeight.w900,
+                  ),
+                ),
+              ),
+              const SizedBox(width: 9),
+              Text(
+                title,
+                style: const TextStyle(
+                  color: Color(0xFFA62C18),
+                  fontSize: 15,
+                  fontWeight: FontWeight.w900,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 7),
+          Text(
+            text,
+            style: const TextStyle(
+              color: Color(0xFF55584F),
+              fontSize: 13,
+              height: 1.48,
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -121,7 +178,69 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 34),
+              const SizedBox(height: 30),
+              Container(
+                padding: const EdgeInsets.all(18),
+                decoration: BoxDecoration(
+                  color: const Color(0xFFFFFDF8),
+                  border: Border.all(color: const Color(0xFFE2C77E)),
+                  borderRadius: BorderRadius.circular(24),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Color(0x0F00452F),
+                      blurRadius: 22,
+                      offset: Offset(0, 8),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'MÉXICO SE CUENTA A TRAVÉS DE SUS SABORES',
+                      style: TextStyle(
+                        color: Color(0xFFD59A1C),
+                        fontSize: 10,
+                        letterSpacing: 1.1,
+                        fontWeight: FontWeight.w900,
+                      ),
+                    ),
+                    const SizedBox(height: 7),
+                    const Text(
+                      '¿Qué es GASTROORIGEN?',
+                      style: TextStyle(
+                        color: Color(0xFF00452F),
+                        fontSize: 21,
+                        fontWeight: FontWeight.w900,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    const Text(
+                      'Una plataforma que descubre y comparte la riqueza gastronómica de México a través de sus ingredientes, platillos, historias y tradiciones.',
+                      style: TextStyle(
+                        color: Color(0xFF69685F),
+                        fontSize: 14,
+                        height: 1.5,
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    _institutionalValue(
+                      letter: 'M',
+                      title: 'Misión',
+                      text:
+                          'Preservar y difundir la gastronomía mexicana mediante conocimiento, cultura y tecnología.',
+                    ),
+                    const SizedBox(height: 10),
+                    _institutionalValue(
+                      letter: 'V',
+                      title: 'Visión',
+                      text:
+                          'Convertir a GASTROORIGEN en un referente digital de la gastronomía de México, conectando sus sabores con el mundo.',
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 32),
               Text(
                 'Explora GASTROORIGEN',
                 style: TextStyle(
